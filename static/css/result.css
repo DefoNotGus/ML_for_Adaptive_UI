@@ -1,0 +1,154 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    font-size: 16px; /* Base font size */
+}
+
+header {
+    background-color: #7A287E;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.625em 1.25em; /* 10px 20px in ems */
+}
+
+header .logo {
+    font-size: 1.95em; /* 1.5em + 30% */
+    font-weight: bold;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+header nav ul li {
+    margin-left: 1.25em; /* 20px in ems */
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+header .edit-mode {
+    background-color: #934696;
+    padding: 0.3125em 0.625em; /* 5px 10px in ems */
+    border-radius: 0.3125em; /* 5px in ems */
+}
+
+.container {
+    padding: 20px 10%; /* 20px top/bottom, 15% left/right */
+}
+
+.course-overview h2 {
+    margin-bottom: 0.625em; /* 10px in ems */
+}
+
+.filters {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.25em; /* 20px in ems */
+}
+
+.filters button {
+    margin-right: 0.625em; /* 10px in ems */
+    padding: 0.3125em 0.625em; /* 5px 10px in ems */
+}
+
+.course-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25em; /* 20px in ems */
+}
+
+.course-card {
+    /* min-height: 150px; Removed min-height */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.course-card .course-image {
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.course-card .course-image img {
+    max-width: 110%;
+    max-height: 110%;
+    object-fit: contain;
+}
+
+.course-card .course-details {
+    padding: 0.625em; /* 10px in ems */
+}
+
+.course-card .course-title {
+    font-weight: bold;
+    margin-bottom: 0.3125em; /* 5px in ems */
+    text-align: center;
+}
+
+.popup {
+    display: none; /* Initially hidden */
+    position: fixed; /* Fixed position to cover the viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it's on top */
+    opacity: 0; /* Initially transparent */
+    transition: opacity 0.3s ease; /* Smooth transition */
+}
+
+.popup.show {
+    display: flex; /* Display as flex when shown */
+    opacity: 1; /* Fully visible */
+}
+
+.popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 400px; /* Adjust as needed */
+    width: 90%; /* Responsive width */
+    transform: translateY(-20px); /* Initial position slightly above */
+    opacity: 0; /* Initially transparent */
+    transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth transition */
+}
+
+.popup.show .popup-content {
+    transform: translateY(0); /* Move to original position */
+    opacity: 1; /* Fully visible */
+}
+
+.popup-content h3 {
+    margin-top: 0;
+}
+
+.popup-content button {
+    margin: 5px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.popup-content button:hover {
+    background-color: #0056b3;
+}

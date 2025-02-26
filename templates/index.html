@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User set up</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h2>Welcome!</h2>
+    <h3>Enter Your Details</h3>
+    <form action="/" method="post">
+        <label for="age">Your Age:</label>
+        <input type="number" name="age" required><br><br>
+        
+        <label for="Digital_Challenges">Select Any Digital Challenges:</label>
+        <select name="Digital_Challenges" required>
+            <option value="0">None</option>
+            <option value="1">Vision difficulties</option>
+            <option value="2">Hand tremors or motor control issues</option>
+            <option value="3">Difficulty with precise clicking/tapping</option>
+            <option value="4">Memory or cognitive challenges</option>
+            <option value="5">Hearing impairment</option>
+        </select><br><br>
+        
+        <label for="Application_Challenges">Select Any Application Challenges:</label>
+        <select name="Application_Challenges" required>
+            <option value="0">None</option>
+            <option value="1">Difficulty reading small text</option>
+            <option value="2">Difficulty navigating menus</option>
+            <option value="3">Difficulty distinguishing colors</option>
+            <option value="4">Difficulty understanding instructions</option>
+            <option value="5">Difficulty clicking small buttons/icons</option>
+            <option value="6">Slow application performance</option>
+            <option value="7">Unclear sound/audio</option>
+        </select><br><br>
+        
+        <label for="Education_Level">Highest Level of Education:</label>
+        <select name="Education_Level" required>
+            <option value="1">None completed yet</option>
+            <option value="2">Primary/Elementary school</option>
+            <option value="3">Secondary/High school/GCSE</option>
+            <option value="4">A-levels or equivalent</option>
+            <option value="5">Vocational training/Trade school</option>
+            <option value="6">Bachelor's degree</option>
+            <option value="7">Master's degree</option>
+            <option value="8">Doctorate or equivalent</option>
+            <option value="9">Prefer not to answer</option>
+            <option value="10">Overseas/Different Education Systems</option>
+        </select><br><br>
+        
+        <label for="Current_Device">Device You Use Most:</label>
+        <select name="Current_Device" required>
+            <option value="1">Laptop</option>
+            <option value="2">PC Desktop</option>
+            <option value="3">Mobile Phone</option>
+            <option value="4">Tablet or iPad</option>
+        </select><br><br>
+        
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moodle Mockup - Prediction Results</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/result.css') }}">
+    <script src="{{ url_for('static', filename='scr/result.js') }}" defer></script>
+    <script>
+        // Pass Flask variables to JavaScript
+        window.flaskData = {
+            textSize: JSON.parse('{{ text_size | default(16) | tojson | safe }}'),
+            imageSize: JSON.parse('{{ image_size | default(100) | tojson | safe }}')
+        };
+    </script>
+    
+</head>
+<body>
+    <div id="filter-popup" class="popup">
+        <div class="popup-content">
+            <h3>Adjust Display Settings</h3>
+            <p>Use the controls below to adjust text and image sizes before proceeding.</p>
+            <button id="text-increase">A+</button>
+            <button id="text-decrease">A-</button>
+            <button id="image-increase">🔼</button>
+            <button id="image-decrease">🔽</button>
+            <br><br>
+            <button id="accept-settings">Accept Settings</button>
+        </div>
+    </div>
+
+    <header>
+        <div class="logo">MockOODLE</div>
+        <nav>
+            <ul>
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="#">Welcome</a></li>
+                <li><a href="#">Support</a></li>
+                <li><a href="#">Staff</a></li>
+            </ul>
+        </nav>
+        <div class="edit-mode">Edit mode</div>
+    </header>
+
+    <div class="container">
+        <div class="course-overview">
+            <h2>Prediction Results</h2>
+            <p id="text-size-display">Your predicted text size: </p>
+            <p id="image-size-display">Your predicted image size: </p>
+            <h3>Sample Images</h3>
+            <div class="course-grid">
+                {% for i in range(1, 10) %}
+                    <div class="course-card">
+                        <div class="course-image">
+                            <img src="{{ url_for('static', filename='img/icon' ~ i ~ '.png') }}" alt="Icon {{ i }}" class="sample-image">
+                        </div>
+                        <div class="course-details">
+                            <div class="course-title">Icon {{ i }}</div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

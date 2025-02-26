@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moodle Mockup</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/result.css') }}">
+</head>
+<body>
+    <header>
+        <div class="logo">MOODLE</div>
+        <nav>
+            <ul>
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="#">Welcome</a></li>
+                <li><a href="#">Support</a></li>
+                <li><a href="#">Staff</a></li>
+            </ul>
+        </nav>
+        <div class="edit-mode">Edit mode</div>
+    </header>
+
+    <div class="container">
+        <div class="course-overview">
+            <h2>Course overview</h2>
+            <div class="filters">
+                <select>
+                    <option value="all">All</option>
+                </select>
+                <input type="text" placeholder="Search">
+                <select>
+                    <option value="course-name">Sort by course name</option>
+                </select>
+                <button>Card</button>
+                <button>+</button>
+            </div>
+
+            <div class="course-grid">
+                <div class="course-card">
+                    <div class="course-image"></div>
+                    <div class="course-details">
+                        <div class="course-title">★ [2024/2025] CM4025 - Enterprise Web Systems ...</div>
+                        <div class="course-subtitle">Sem 2</div>
+                        <div class="course-progress">0% complete</div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-image"></div>
+                    <div class="course-details">
+                        <div class="course-title">[2024/2025] CM4105 - Honours Individual Project</div>
+                        <div class="course-subtitle">2024/2025</div>
+                        <div class="course-progress">20% complete</div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-image"></div>
+                    <div class="course-details">
+                        <div class="course-title">[2024/2025] CM4125 - Data Viz</div>
+                        <div class="course-subtitle">2024/2025</div>
+                        <div class="course-progress">4% complete</div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-image"></div>
+                    <div class="course-details">
+                        <div class="course-title">(Course Welcome Area) PRF192 - BSc (Hons) Computing ...</div>
+                        <div class="course-subtitle">Course Welcome Areas</div>
+                        <div class="course-progress"></div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-image"></div>
+                    <div class="course-details">
+                        <div class="course-title">[General Study Area] Draft Coach For Students</div>
+                        <div class="course-subtitle">Information Areas</div>
+                        <div class="course-progress"></div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-image"></div>
+                    <div class="course-details">
+                        <div class="course-title">[General Study Area] IT Skills Study Skills & Access</div>
+                        <div class="course-subtitle"></div>
+                        <div class="course-progress"></div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-image"></div>
+                    <div class="course-details">
+                        <div class="course-title">[General Study Area] Maths & Stats</div>
+                        <div class="course-subtitle">Study Skills & Access</div>
+                        <div class="course-progress"></div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-image"></div>
+                    <div class="course-details">
+                        <div class="course-title">[General Study Area] Placement Employability</div>
+                        <div class="course-subtitle"></div>
+                        <div class="course-progress"></div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-image"></div>
+                    <div class="course-details">
+                        <div class="course-title">[General Study Area] Student Guidance on the use of AI</div>
+                        <div class="course-subtitle">Study Skills & Access</div>
+                        <div class="course-progress"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
