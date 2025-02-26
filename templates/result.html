@@ -13,7 +13,6 @@
             imageSize: JSON.parse('{{ image_size | default(100) | tojson | safe }}')
         };
     </script>
-    
 </head>
 <body>
     <div id="filter-popup" class="popup">
@@ -49,13 +48,14 @@
             <p id="image-size-display">Your predicted image size: </p>
             <h3>Sample Images</h3>
             <div class="course-grid">
+                {% set course_modules = ["Introduction to Computing", "World History 101", "Fundamentals of Biology", "Advanced Programming", "European History", "Cellular Biology", "Data Structures", "Modern History", "Ecology"] %}
                 {% for i in range(1, 10) %}
                     <div class="course-card">
                         <div class="course-image">
-                            <img src="{{ url_for('static', filename='img/icon' ~ i ~ '.png') }}" alt="Icon {{ i }}" class="sample-image">
+                            <img src="{{ url_for('static', filename='img/icon' ~ i ~ '.png') }}" alt="{{ course_modules[i-1] }}" class="sample-image">
                         </div>
                         <div class="course-details">
-                            <div class="course-title">Icon {{ i }}</div>
+                            <div class="course-title">{{ course_modules[i-1] }}</div>
                         </div>
                     </div>
                 {% endfor %}
