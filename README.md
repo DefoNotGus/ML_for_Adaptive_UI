@@ -2,7 +2,7 @@
 
 This project develops machine learning models to predict optimal UI text and image sizes based on user characteristics, encompassing data processing, model training, and deployment.
 
-### Requirements
+## Requirements
 
 This project utilizes the following libraries for data processing, machine learning, and web application deployment:
 
@@ -12,6 +12,67 @@ This project utilizes the following libraries for data processing, machine learn
 -   **joblib:** Used for model persistence, saving and loading trained machine learning models in `.pkl` format in `mlmodel.py` and `app.py`.
 -   **Flask:** A web framework used in `app.py` to create the web application for deploying the machine learning models and providing a user interface.
 
+## Setup
+
+1.  **Create a Virtual Environment (Recommended):**
+
+    * Navigate to the project directory in your terminal.
+    * Run:
+        ```bash
+        python3 -m venv .venv
+        ```
+    * Or run:
+        ```bash
+        python -m venv .venv
+        ```
+    * Verify a `.venv` has been created
+    * Add `.venv/` to your `.gitignore` file:
+        ```bash
+        echo ".venv/" >> .gitignore
+        ```
+    * Activate the virtual environment:
+        * On macOS/Linux:
+            ```bash
+            source .venv/bin/activate
+            ```
+        * On Windows:
+            ```bash
+            .venv\Scripts\activate
+            ```
+
+2.  **Install Dependencies:**
+    * With the virtual environment activated, run (recommended):
+        ```bash
+        pip install -r requirements.txt
+        ```
+
+    * Or you can run pip for using newer versions:
+        ```bash
+        pip install Flask joblib pandas scikit-learn numpy
+        ```
+
+3.  **Run the AUI Application:**
+    
+    this will initiate the the flask server locally and deploy the website prototype.
+    * Execute the `app.py` script:
+        ```bash
+        python app.py
+        ```
+
+    * Open your web browser and navigate to the address displayed in the terminal.
+
+## Project Files
+
+* `app.py`: The main Flask application.
+* `data_processor.py`: Data processing logic.
+* `mlmodel.py`: Machine learning model logic.
+* `data.csv`, `form1.csv`: Data files.
+* `rf_image_size.pkl`, `rf_text_size.pkl`: Pre-trained machine learning models.
+* `📁static`: Contains static files (CSS, JavaScript, images).
+* `📁templates`: Contains HTML templates.
+* `requirements.txt`: Lists the project's Python dependencies.
+
+# Prototype:
 ## 1. Data Processing: Transforming Survey Data (`form1.csv` to `data.csv`)
 
 ### Overview
