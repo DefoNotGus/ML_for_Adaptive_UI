@@ -187,19 +187,7 @@ We chose Random Forest Regressor because it effectively handles the complexities
 
 ### Deployment
 
-Saved models (`.pkl`) are ready for use in a web app to predict UI element sizes.
-
-# ML_for_Adaptive_UI: Adaptive UI Prediction Model Training
-
-This project develops machine learning models to predict optimal UI text and image sizes based on user characteristics, encompassing data processing, model training, and deployment.
-
-## 1. Data Processing: Transforming Survey Data (`form1.csv` to `data.csv`)
-
-...(Previous Data Processing Section)...
-
-## 2. Model Training and Evaluation (Predicting `Text_Size`, `Image_Size`)
-
-...(Previous Model Training Section)...
+Saved models (`.pkl`) are ready for use in a web app to predict UI element sizes hosted in flask.
 
 ## 3. ML Deployment: Flask Web Application
 
