@@ -20,8 +20,8 @@ Timestamp,Text_Size,Image_Size,Digital_Challenges,Application_Challenges,age,Tec
 26/01/2025 19:35:13,25,250,,,25,5,"Smartphone, Laptop, Desktop computer",Yes,Bachelor's degree,"BlackBoard, Moodle, Brightspace",I like it,I don't mind it,I like it,,,,Mobile Phone
 26/01/2025 20:25:59,18,288,Vision difficulties,"Difficulty reading small text, Difficulty clicking small buttons or icons",,4,Laptop,No,Master’s degree,"BlackBoard, Moodle",I like it,I don't like it,,,,,Mobile Phone
 27/01/2025 10:18:43,22,275,,,21,4,"Smartphone, Laptop",Yes,A-levels or equivalent,"BlackBoard, Brightspace",I like it,,I don't mind it,,,,Mobile Phone
-27/01/2025 10:32:41,16,275,,"Difficulty reading small text, Difficulty distinguishing colours, Slow application performance",42,5,Smartphone,No,Vocational training/Trade school,BlackBoard,I like it,I don't mind it,I don't mind it,I don't mind it,I don't mind it,I don't mind it,Mobile Phone
-27/01/2025 20:48:18,15,300,,,25,5,"Smartphone, Laptop, Desktop computer",Yes,A-levels or equivalent,"BlackBoard, Brightspace",I like it,I don't mind it,I don't like it,I don't mind it,I don't mind it,I don't mind it,Mobile Phone
+27/01/2025 10:32:41,16,275,,"Difficulty reading small text, Difficulty distinguishing colours, Slow application performance",42,5,Smartphone,No,Vocational training/Trade school,BlackBoard,I like it,I don't mind it,I don't mind it,,,,Mobile Phone
+27/01/2025 20:48:18,15,300,,,25,5,"Smartphone, Laptop, Desktop computer",Yes,A-levels or equivalent,"BlackBoard, Brightspace",I like it,I don't mind it,I don't like it,,,,Mobile Phone
 28/01/2025 15:42:28,16,270,,Difficulty reading small text,52,4,Laptop,No,Doctorate or equivalent,,,,,,,,Mobile Phone
 28/01/2025 18:22:11,24,315,,Difficulty reading small text,42,4,Smartphone,Yes,A-levels or equivalent,"BlackBoard, Brightspace",I like it,,I like it,,,,Mobile Phone
 03/02/2025 13:45:58,23,500,Vision difficulties,"Difficulty reading small text, Difficulty navigating menus, Difficulty clicking small buttons or icons",49,5,"Smartphone, Desktop computer, Server",Yes,Bachelor's degree,"BlackBoard, Brightspace",I don't mind it,,I like it,,,,PC Desktop
@@ -29,3 +29,16 @@ Timestamp,Text_Size,Image_Size,Digital_Challenges,Application_Challenges,age,Tec
 04/02/2025 09:25:27,15,300,,Difficulty clicking small buttons or icons,22,5,"Smartphone, Laptop, Desktop computer",No,Bachelor's degree,"Moodle, Brightspace",I don't mind it,I don't mind it,I don't like it,,,,PC Desktop
 04/02/2025 09:38:11,19,375,"Vision difficulties, Difficulty with precise clicking/tapping","Difficulty reading small text, Difficulty distinguishing colours, Slow application performance",43,4,"Tablet, Laptop, Desktop computer",No,Doctorate or equivalent,"BlackBoard, Brightspace",I like it,,I don't mind it,,,,Laptop
 04/02/2025 16:15:05,16,250,Vision difficulties,Difficulty reading small text,40,4,"Smartphone, Laptop",Yes,Bachelor's degree,Moodle,,I don't mind it,,,,,Mobile Phone
+26/02/2025 17:47:43,50,500,"Vision difficulties, Hand tremors or motor control issues, Difficulty with precise clicking/tapping","Difficulty reading small text, Difficulty navigating menus, Difficulty clicking small buttons or icons, Sound or audio not being clear enough",63,2,"Laptop, eReader (e.g., Kindle)",No,Bachelor's degree,,,,,,,,Mobile Phone
+07/03/2025 11:14:41,37,365,Difficulty with precise clicking/tapping,Sound or audio not being clear enough,,3,"Smartphone, Laptop",Yes,A-levels or equivalent,BlackBoard,I like it,,,,,,Laptop
+08/03/2025 12:08:55,36,440,,,64,2,"Smartphone, Desktop computer",Yes,Master’s degree,"BlackBoard, Brightspace",I like it,,I don't mind it,,,,PC Desktop
+08/03/2025 12:55:28,25,265,Memory or cognitive challenges (Do you forget or get lost on the navigation),Difficulty navigating menus,33,4,Laptop,Yes,Bachelor's degree,"BlackBoard, Moodle",I don't mind it,I like it,,,,,Laptop
+08/03/2025 13:09:24,21,225,,,24,5,"Smartphone, Laptop",Yes,Secondary/High school/GCSE,Brightspace,,,I like it,,,,PC Desktop
+08/03/2025 13:12:17,26,313,Difficulty with precise clicking/tapping,Difficulty reading small text,67,3,"Tablet, Laptop",Yes,Other,Brightspace,,I don't like it,,,,,Laptop
+08/03/2025 13:16:25,37,420,,,,2,"Smartphone, Laptop",No,A-levels or equivalent,BlackBoard,I don't mind it,,,,,,Laptop
+08/03/2025 13:48:19,29,320,"Vision difficulties, Hearing impairment","Difficulty reading small text, Difficulty clicking small buttons or icons, Sound or audio not being clear enough",70,2,I do not use devices for educational purposes,No,Secondary/High school/GCSE,,,,,,,,Laptop
+08/03/2025 13:54:08,45,400,"Vision difficulties, Difficulty with precise clicking/tapping, Memory or cognitive challenges (Do you forget or get lost on the navigation)","Difficulty reading small text, Difficulty navigating menus, Difficulty distinguishing colours, Difficulty understanding instructions, Difficulty clicking small buttons or icons",67,1,I do not use devices for educational purposes,No,Prefer not to answer,,,,,,,,Laptop
+08/03/2025 14:15:45,18,213,,,62,1,Smartphone,Yes,Other,Brightspace,,,I don't mind it,,,,Laptop
+08/03/2025 14:17:54,14,153,Hearing impairment,,41,3,I do not use devices for educational purposes,No,Master’s degree,,,,,,,,PC Desktop
+08/03/2025 14:18:58,16,265,,,30,4,I do not use devices for educational purposes,Yes,Bachelor's degree,Moodle,,I don't mind it,,,,,Laptop
+08/03/2025 14:36:49,20,200,,,21,5,"Smartphone, Laptop, Desktop computer",Yes,Secondary/High school/GCSE,Brightspace,,,I like it,,,,Laptop
