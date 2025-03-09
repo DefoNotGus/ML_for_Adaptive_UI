@@ -49,17 +49,6 @@ header .edit-mode {
     margin-bottom: 0.625em; /* 10px in ems */
 }
 
-.filters {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1.25em; /* 20px in ems */
-}
-
-.filters button {
-    margin-right: 0.625em; /* 10px in ems */
-    padding: 0.3125em 0.625em; /* 5px 10px in ems */
-}
-
 .course-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -67,7 +56,6 @@ header .edit-mode {
 }
 
 .course-card {
-    /* min-height: 150px; Removed min-height */
     border: 1px solid #ddd;
     border-radius: 5px;
     overflow: hidden;
@@ -97,58 +85,117 @@ header .edit-mode {
 }
 
 .popup {
-    display: none; /* Initially hidden */
-    position: fixed; /* Fixed position to cover the viewport */
+    display: none;
+    position: fixed;
     top: 0;
-    left: 0;
-    width: 100%;
+    right: 0;
+    width: 600px;
     height: 100%;
-    background-color: rgba(0, 0, 0.1, 0.3); /* Semi-transparent background */
+    background-color: rgba(0, 0, 0, 0.3);
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* Ensure it's on top */
-    opacity: 0; /* Initially transparent */
-    transition: opacity 0.3s ease; /* Smooth transition */
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease, right 0.3s ease;
 }
 
 .popup.show {
-    display: flex; /* Display as flex when shown */
-    opacity: 1; /* Fully visible */
+    display: flex;
+    opacity: 1;
+    right: 0;
 }
 
 .popup-content {
     background-color: white;
-    padding: 20px;
+    padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    max-width: 400px; /* Adjust as needed */
-    width: 90%; /* Responsive width */
-    transform: translateY(-20px); /* Initial position slightly above */
-    opacity: 0; /* Initially transparent */
-    transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth transition */
+    text-align: left;
+    width: 95%;
+    max-width: 600px;
+    transform: translateY(-20px);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .popup.show .popup-content {
-    transform: translateY(0); /* Move to original position */
-    opacity: 1; /* Fully visible */
+    transform: translateY(0);
+    opacity: 1;
 }
 
 .popup-content h3 {
     margin-top: 0;
+    font-size: 0.8em;
+    font-weight: bold;
 }
 
-.popup-content button {
+.popup-content p {
+    font-size: 0.6em;
+    margin: 10px 0;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.control {
+    margin-bottom: 20px;
+}
+
+.control label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+}
+
+button {
     margin: 5px;
     padding: 10px 15px;
     border: none;
     border-radius: 4px;
-    background-color: #007bff;
-    color: white;
+    background-color: #c4d0e6;
+    color: rgb(0, 0, 0);
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-.popup-content button:hover {
+button:hover {
     background-color: #0056b3;
+}
+
+#accept-settings {
+    background-color: #28a745;
+}
+
+#accept-settings:hover {
+    background-color: #218838;
+}
+
+
+.linear-course-list {
+    display: flex;
+    flex-direction: column; /* Arrange items in a single column */
+}
+
+.linear-course-item {
+    border: 1px solid #ddd;
+    margin-bottom: 10px; /* Add space between items */
+    padding: 15px;
+    display: flex; /* Use flexbox for layout */
+    align-items: center; /* Vertically align image and details */
+}
+
+.linear-course-image {
+    width: 100px; /* Adjust image width as needed */
+    height: 100px; /* Adjust image height as needed */
+    margin-right: 15px; /* Add space between image and details */
+    background-color: #f0f0f0; /* Placeholder background */
+}
+
+
+.linear-course-title {
+    font-weight: bold;
 }

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moodle Mockup</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/result.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/moodle.css') }}">
 </head>
 <body>
     <header>
@@ -116,6 +116,23 @@
                         <div class="course-progress"></div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="course-overview">
+            <h2>Course Conte</h2>
+            <div class="course-grid">
+                {% for i in range(1, 9) %}
+                <div class="new-course-card" id="new-card-{{ i }}">
+                    <div class="new-course-image" style="background-image: url({{ url_for('static', filename='img/icon' ~ i ~ '.png') }});"></div>
+                    <div class="course-details">
+                        <div class="course-title">Course Title {{ i }}</div>
+                        <div class="course-subtitle">Subtitle {{ i }}</div>
+                        <div class="course-progress">{{ i * 10 }}% complete</div>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
         </div>
     </div>

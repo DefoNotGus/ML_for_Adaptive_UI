@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const imageSizeDisplay = document.getElementById('image-size-display');
     const images = document.querySelectorAll('.sample-image');
     const popup = document.getElementById('filter-popup');
+    const editModeButton = document.getElementById('edit-mode-button'); // Select the button
 
     // Access Flask variables from window.flaskData
     let currentTextSize = window.flaskData.textSize;
@@ -39,8 +40,10 @@ document.addEventListener('DOMContentLoaded', function() {
         popup.classList.remove('show');
     }
 
-    // Show popup on page load
-    showPopup();
+    // Remove the showPopup() call here to prevent it from showing on load
+
+    // Add event listener to the "Edit mode" button
+    editModeButton.addEventListener('click', showPopup); 
 
     document.getElementById('text-increase').addEventListener('click', () => adjustTextSize(2));
     document.getElementById('text-decrease').addEventListener('click', () => adjustTextSize(-2));

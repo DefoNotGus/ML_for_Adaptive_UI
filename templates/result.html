@@ -18,15 +18,29 @@
     <div id="filter-popup" class="popup">
         <div class="popup-content">
             <h3>Adjust Display Settings</h3>
-            <p>Use the controls below to adjust text and image sizes before proceeding.</p>
-            <button id="text-increase">A+</button>
-            <button id="text-decrease">A-</button>
-            <button id="image-increase">🔼</button>
-            <button id="image-decrease">🔽</button>
+            <p>Use the controls below to adjust text and image sizes to suit your preferences.</p>
+            
+            <div class="controls">
+                <div class="control">
+                    <label for="text-size">Text Size</label>
+                    <button id="text-increase">A+</button>
+                    <button id="text-decrease">A-</button>
+                    <p id="text-size-display">Current text size: </p>
+                </div>
+                
+                <div class="control">
+                    <label for="image-size">Image Size</label>
+                    <button id="image-increase">🔼</button>
+                    <button id="image-decrease">🔽</button>
+                    <p id="image-size-display">Current image size: </p>
+                </div>
+            </div>
+    
             <br><br>
-            <button id="accept-settings">Accept Settings</button>
+            <button id="accept-settings" class="btn">Accept Settings</button>
         </div>
     </div>
+
 
     <header>
         <div class="logo">MockOODLE</div>
@@ -38,15 +52,112 @@
                 <li><a href="#">Staff</a></li>
             </ul>
         </nav>
-        <div class="edit-mode">Edit mode</div>
+        <div class="edit-mode" id="edit-mode-button">Edit mode</div>
     </header>
+
+    <div class="container" id="linear-container">
+        <div class="course-overview">
+            <h2>Course overview</h2>
+            <div class="filters">
+                <select>
+                    <option value="all">All</option>
+                </select>
+                <input type="text" placeholder="Search">
+                <select>
+                    <option value="course-name">Sort by course name</option>
+                </select>
+                <button>Card</button>
+                <button>+</button>
+            </div>
+    
+            <div class="linear-course-list">
+                <div class="linear-course-item">
+                    <div class="linear-course-image"></div>
+                    <div class="linear-course-details">
+                        <div class="linear-course-title">★ [2024/2025] CM4025 - Enterprise Web Systems ...</div>
+                        <div class="linear-course-subtitle">Sem 2</div>
+                        <div class="linear-course-progress">0% complete</div>
+                    </div>
+                </div>
+    
+                <div class="linear-course-item">
+                    <div class="linear-course-image"></div>
+                    <div class="linear-course-details">
+                        <div class="linear-course-title">[2024/2025] CM4105 - Honours Individual Project</div>
+                        <div class="linear-course-subtitle">2024/2025</div>
+                        <div class="linear-course-progress">20% complete</div>
+                    </div>
+                </div>
+    
+                <div class="linear-course-item">
+                    <div class="linear-course-image"></div>
+                    <div class="linear-course-details">
+                        <div class="linear-course-title">[2024/2025] CM4125 - Data Viz</div>
+                        <div class="linear-course-subtitle">2024/2025</div>
+                        <div class="linear-course-progress">4% complete</div>
+                    </div>
+                </div>
+    
+                <div class="linear-course-item">
+                    <div class="linear-course-image"></div>
+                    <div class="linear-course-details">
+                        <div class="linear-course-title">(Course Welcome Area) PRF192 - BSc (Hons) Computing ...</div>
+                        <div class="linear-course-subtitle">Course Welcome Areas</div>
+                        <div class="linear-course-progress"></div>
+                    </div>
+                </div>
+    
+                <div class="linear-course-item">
+                    <div class="linear-course-image"></div>
+                    <div class="linear-course-details">
+                        <div class="linear-course-title">[General Study Area] Draft Coach For Students</div>
+                        <div class="linear-course-subtitle">Information Areas</div>
+                        <div class="linear-course-progress"></div>
+                    </div>
+                </div>
+    
+                <div class="linear-course-item">
+                    <div class="linear-course-image"></div>
+                    <div class="linear-course-details">
+                        <div class="linear-course-title">[General Study Area] IT Skills Study Skills & Access</div>
+                        <div class="linear-course-subtitle"></div>
+                        <div class="linear-course-progress"></div>
+                    </div>
+                </div>
+    
+                <div class="linear-course-item">
+                    <div class="linear-course-image"></div>
+                    <div class="linear-course-details">
+                        <div class="linear-course-title">[General Study Area] Maths & Stats</div>
+                        <div class="linear-course-subtitle">Study Skills & Access</div>
+                        <div class="linear-course-progress"></div>
+                    </div>
+                </div>
+    
+                <div class="linear-course-item">
+                    <div class="linear-course-image"></div>
+                    <div class="linear-course-details">
+                        <div class="linear-course-title">[General Study Area] Placement Employability</div>
+                        <div class="linear-course-subtitle"></div>
+                        <div class="linear-course-progress"></div>
+                    </div>
+                </div>
+    
+                <div class="linear-course-item">
+                    <div class="linear-course-image"></div>
+                    <div class="linear-course-details">
+                        <div class="linear-course-title">[General Study Area] Student Guidance on the use of AI</div>
+                        <div class="linear-course-subtitle">Study Skills & Access</div>
+                        <div class="linear-course-progress"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="container">
         <div class="course-overview">
-            <h2>Prediction Results</h2>
-            <p id="text-size-display">Your predicted text size: </p>
-            <p id="image-size-display">Your predicted image size: </p>
-            <h3>Sample Images</h3>
+            <h1>Course content</h3>
             <div class="course-grid">
                 {% set course_modules = ["Introduction to Computing", "World History 101", "Fundamentals of Biology", "Advanced Programming", "European History", "Cellular Biology", "Data Structures", "Modern History", "Ecology"] %}
                 {% for i in range(1, 10) %}
@@ -62,5 +173,11 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById('edit-mode-button').addEventListener('click', function() {
+            document.getElementById('filter-popup').classList.add('show');
+        });
+    </script>
 </body>
 </html>
