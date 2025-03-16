@@ -6,82 +6,45 @@
     <title>Moodle Mockup - Prediction Results</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/prototype.css') }}">
     <style>
-        /* Dynamic Styles */
-        body {
-            font-size: {% if text_size %}{{ text_size }}px{% else %}16px{% endif %};
-        }
-
-        .prototype1 .sample-image {
-            width: {% if image_size %}{{ image_size }}px{% else %}265px{% endif %};
-            height: {% if image_size %}{{ image_size }}px{% else %}192px{% endif %};
+        :root {
+            --image-size: {{ image_size }}px;
+            --min-card-size: calc({{ image_size }}px + 50px); /* Adjust grid item size */
         }
     </style>
-    <script>
-        window.flaskData = {
-            textSize: JSON.parse('{{ text_size | default(16) | tojson | safe }}'),
-            imageSize: JSON.parse('{{ image_size | default(100) | tojson | safe }}')
-        };
-    </script>
+    
 </head>
 <body>
-    <div id="filter-popup" class="popup">
-        <div class="popup-content">
-            <h3>Adjust Display Settings</h3>
-            <p>Use the controls below to adjust text and image sizes to suit your preferences.</p>
-            <div class="controls">
-                <div class="control">
-                    <label for="text-size">Text Size</label>
-                    <button id="text-increase">A+</button>
-                    <button id="text-decrease">A-</button>
-                    <p id="text-size-display">Current text size: {% if text_size %}{{ text_size }}px{% else %}16px{% endif %}</p>
-                </div>
-                <div class="control">
-                    <label for="image-size">Image Size</label>
-                    <button id="image-increase">🔼</button>
-                    <button id="image-decrease">🔽</button>
-                    <p id="image-size-display">Current image size: {% if image_size %}{{ image_size }}px{% else %}200px{% endif %}</p>
-                </div>
-            </div>
-            <br><br>
-            <button id="accept-settings" class="btn">Accept Settings</button>
-        </div>
-    </div>
     <header>
-        <div class="logo">MockOODLE</div>
+        <div class="logo" style="font-size: {{ text_size }}px;">MockOODLE</div>
         <nav>
             <ul>
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="#">Welcome</a></li>
-                <li><a href="#">Support</a></li>
-                <li><a href="#">Staff</a></li>
+                <li><a href="#" style="font-size: {{ text_size }}px;">Dashboard</a></li>
+                <li><a href="#" style="font-size: {{ text_size }}px;">Welcome</a></li>
+                <li><a href="#" style="font-size: {{ text_size }}px;">Support</a></li>
+                <li><a href="#" style="font-size: {{ text_size }}px;">Staff</a></li>
             </ul>
         </nav>
-        <div class="edit-mode" id="edit-mode-button">Edit mode</div>
+        <div class="edit-mode" id="edit-mode-button" style="font-size: {{ text_size }}px;">Edit mode</div>
     </header>
+    
     <div class="container">
-        <div class="course-overview">
-            <h1>Course content</h1>
-            <div class="course-grid">
-                {% set course_modules = ["Introduction to Computing", "World History 101", "Fundamentals of Biology", "Advanced Programming", "European History", "Cellular Biology", "Data Structures", "Modern History", "Ecology"] %}
-                {% for i in range(1, 10) %}
-                <div class="course-card {% if prototype == 'prototype1' %}prototype1{% else %}prototype2{% endif %}">
-                    <div class="course-image">
-                        <img src="{{ url_for('static', filename='img/icon1.png') }}" 
-                             alt="{{ course_modules[i-1] }}" 
-                             class="sample-image">
-                    </div>
-                    <div class="course-details">
-                        <div class="course-title">{{ course_modules[i-1] }}</div>
+        <div class="course-grid">
+            {% for i in range(1, 10) %}
+            <div class="course-card">
+                <div class="course-image">
+                    <img src="{{ url_for('static', filename='img/icon' + i|string + '.png') }}" 
+                         alt="Course Image"
+                         style="width: {{ image_size }}px; height: {{ image_size }}px;">
+                </div>
+                <div class="course-details">
+                    <div class="course-title" style="font-size: {{ text_size }}px;">
+                        {{ course_modules[i-1] }}
                     </div>
                 </div>
-                {% endfor %}
             </div>
+            {% endfor %}
         </div>
     </div>
-    <script>
-        document.getElementById('edit-mode-button').addEventListener('click', function() {
-            document.getElementById('filter-popup').classList.add('show');
-        });
-    </script>
+
 </body>
 </html>

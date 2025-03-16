@@ -17,11 +17,21 @@ except Exception as e:
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    course_modules = [
+        "Math Fundamentals", "Python Basics", "Cybersecurity 101",
+        "Machine Learning", "Data Science", "Web Development",
+        "Networking", "Cloud Computing", "Ethical Hacking"
+    ]
+
+    # Default sizes for prototype 2 (static)
+    text_size = 16  
+    image_size = 265  
+
     if request.method == 'POST':
         prototype = request.form.get('prototype')
 
         if prototype == "prototype2":
-            return render_template('prototype.html')
+            return render_template('prototype.html', course_modules=course_modules, text_size=text_size, image_size=image_size, prototype=2)
 
         elif prototype == "prototype1":
             try:
@@ -39,14 +49,14 @@ def index():
                 text_size = rf_text_size.predict(features)[0]
                 image_size = rf_image_size.predict(features)[0]
 
-                return render_template('prototype.html', text_size=text_size, image_size=image_size)
+                return render_template('prototype.html', course_modules=course_modules, text_size=text_size, image_size=image_size, prototype=1)
 
             except ValueError:
                 return "Error: Invalid input. Please enter numerical values."
             except Exception as e:
                 return f"Error: {e}"
 
-    return render_template('index.html')
+    return render_template('index.html', course_modules=course_modules)
 
 if __name__ == '__main__':
     app.run(debug=True)
