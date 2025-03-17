@@ -7,44 +7,51 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/prototype.css') }}">
     <style>
         :root {
-            --image-size: {{ image_size }}px;
-            --min-card-size: calc({{ image_size }}px + 50px); /* Adjust grid item size */
+            --image-size: {{ image_size | default(100, true) }}px;
+            --min-card-size: calc(var(--image-size) + 50px);
+            --text-size: {{ text_size | default(16, true) }}px;
+        }
+
+        .logo, nav a, .edit-mode, .course-title {
+            font-size: var(--text-size);
+        }
+
+        .course-image img {
+            width: var(--image-size);
+            height: var(--image-size);
         }
     </style>
-    
 </head>
 <body>
     <header>
-        <div class="logo" style="font-size: {{ text_size }}px;">MockOODLE</div>
+        <div class="logo">MockOODLE</div>
         <nav>
             <ul>
-                <li><a href="#" style="font-size: {{ text_size }}px;">Dashboard</a></li>
-                <li><a href="#" style="font-size: {{ text_size }}px;">Welcome</a></li>
-                <li><a href="#" style="font-size: {{ text_size }}px;">Support</a></li>
-                <li><a href="#" style="font-size: {{ text_size }}px;">Staff</a></li>
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="#">Welcome</a></li>
+                <li><a href="#">Support</a></li>
+                <li><a href="#">Staff</a></li>
             </ul>
         </nav>
-        <div class="edit-mode" id="edit-mode-button" style="font-size: {{ text_size }}px;">Edit mode</div>
+        <div class="edit-mode" id="edit-mode-button">Edit mode</div>
     </header>
     
     <div class="container">
         <div class="course-grid">
-            {% for i in range(1, 10) %}
+            {% for i in range(course_modules|length) %}
             <div class="course-card">
                 <div class="course-image">
-                    <img src="{{ url_for('static', filename='img/icon' + i|string + '.png') }}" 
-                         alt="Course Image"
-                         style="width: {{ image_size }}px; height: {{ image_size }}px;">
+                    <img src="{{ url_for('static', filename='img/icon' ~ (i + 1) ~ '.png') }}" 
+                         alt="Course Image">
                 </div>
                 <div class="course-details">
-                    <div class="course-title" style="font-size: {{ text_size }}px;">
-                        {{ course_modules[i-1] }}
+                    <div class="course-title">
+                        {{ course_modules[i] }}
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
     </div>
-
 </body>
 </html>
