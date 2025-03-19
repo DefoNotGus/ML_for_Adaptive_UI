@@ -18,14 +18,14 @@ except Exception as e:
 @app.route('/', methods=['GET', 'POST'])
 def index():
     course_modules = [
-        "Math Fundamentals", "Python Basics", "Cybersecurity 101",
+        "Math Fundamentals", "Python Basics", "Cybersecurity",
         "Machine Learning", "Data Science", "Web Development",
         "Networking", "Cloud Computing", "Ethical Hacking"
     ]
 
     # Default sizes for prototype 2 (static)
     text_size = 16  
-    image_size = 265  
+    image_size = 250  
 
     if request.method == 'POST':
         prototype = request.form.get('prototype')

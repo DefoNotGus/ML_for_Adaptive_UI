@@ -1,12 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Setup</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
     <style>
         body {
             text-align: center;
             font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
         }
         .container {
             display: flex;
@@ -15,25 +20,59 @@
             justify-content: center;
             height: 100vh;
         }
-        .options {
-            margin-bottom: 20px;
+        .options button {
+            margin: 10px;
+            padding: 12px 24px;
+            font-size: 18px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .options button:hover {
+            background-color: #0056b3;
         }
         .form-container {
             display: none;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: left;
+            max-width: 400px;
+            width: 100%;
+            animation: fadeIn 0.5s ease-in-out;
         }
-        button {
-            margin: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
+        label {
+            font-weight: bold;
+        }
+        select, input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button.submit-btn {
+            width: 100%;
+            background-color: #28a745;
+            transition: background 0.3s;
+        }
+        button.submit-btn:hover {
+            background-color: #218838;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
     <script>
         function showForm() {
             document.getElementById("form-container").style.display = "block";
         }
-        
         function submitPrototype2() {
             let form = document.createElement("form");
             form.method = "POST";
@@ -66,20 +105,22 @@
                 <input type="hidden" name="prototype" value="prototype1">
                 
                 <label for="age">Your Age:</label>
-                <input type="number" name="age" required><br><br>
+                <input type="number" name="age" required>
                 
-                <label for="Digital_Challenges">Select Any Digital Challenges:</label>
-                <select name="Digital_Challenges" required>
+                <label for="digital_challenges">Select Any Digital Challenges:</label>
+                <select name="digital_challenges" >
+                    <option value="">-- Select an option --</option>
                     <option value="0">None</option>
                     <option value="1">Vision difficulties</option>
                     <option value="2">Hand tremors or motor control issues</option>
                     <option value="3">Difficulty with precise clicking/tapping</option>
                     <option value="4">Memory or cognitive challenges</option>
                     <option value="5">Hearing impairment</option>
-                </select><br><br>
+                </select>
                 
-                <label for="Application_Challenges">Select Any Application Challenges:</label>
-                <select name="Application_Challenges" required>
+                <label for="application_challenges">Select Any Application Challenges:</label>
+                <select name="application_challenges" >
+                    <option value="">-- Select an option --</option>
                     <option value="0">None</option>
                     <option value="1">Difficulty reading small text</option>
                     <option value="2">Difficulty navigating menus</option>
@@ -88,10 +129,11 @@
                     <option value="5">Difficulty clicking small buttons/icons</option>
                     <option value="6">Slow application performance</option>
                     <option value="7">Unclear sound/audio</option>
-                </select><br><br>
+                </select>
                 
-                <label for="Education_Level">Highest Level of Education:</label>
-                <select name="Education_Level" required>
+                <label for="education_level">Highest Level of Education:</label>
+                <select name="education_level" >
+                    <option value="">-- Select an option --</option>
                     <option value="1">None completed yet</option>
                     <option value="2">Primary/Elementary school</option>
                     <option value="3">Secondary/High school/GCSE</option>
@@ -102,17 +144,18 @@
                     <option value="8">Doctorate or equivalent</option>
                     <option value="9">Prefer not to answer</option>
                     <option value="10">Overseas/Different Education Systems</option>
-                </select><br><br>
+                </select>
                 
-                <label for="Current_Device">Device You Use Most:</label>
-                <select name="Current_Device" required>
+                <label for="current_device">Device You Use Most:</label>
+                <select name="current_device" >
+                    <option value="">-- Select an option --</option>
                     <option value="1">Laptop</option>
                     <option value="2">PC Desktop</option>
                     <option value="3">Mobile Phone</option>
                     <option value="4">Tablet or iPad</option>
-                </select><br><br>
+                </select>
                 
-                <button type="submit">Submit</button>
+                <button type="submit" class="submit-btn">Submit</button>
             </form>
         </div>
     </div>
