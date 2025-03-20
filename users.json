@@ -1,0 +1,22 @@
+{
+    "gu": {
+        "prototype": 1,
+        "age": 25,
+        "digital_challenges": 0,
+        "application_challenges": 0,
+        "education_level": 0,
+        "current_device": 0,
+        "text_size": 24.013880952380944,
+        "image_size": 300.9803571428571
+    },
+    "gus": {
+        "prototype": 1,
+        "age": 25,
+        "digital_challenges": 0,
+        "application_challenges": 0,
+        "education_level": 0,
+        "current_device": 0,
+        "text_size": 24.013880952380944,
+        "image_size": 300.9803571428571
+    }
+}
