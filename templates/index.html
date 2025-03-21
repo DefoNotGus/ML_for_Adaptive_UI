@@ -20,6 +20,11 @@
             justify-content: center;
             height: 100vh;
         }
+        .logo {
+            width: 150px;
+            height: auto;
+            margin-bottom: 20px;
+        }
         .options button {
             margin: 10px;
             padding: 12px 24px;
@@ -64,6 +69,13 @@
         button.submit-btn:hover {
             background-color: #218838;
         }
+        #description {
+            margin-top: 10px;
+            padding: 10px;
+            background: #fff;
+            border-radius: 5px;
+            width: 60%;
+        }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -72,28 +84,42 @@
     <script>
         function showForm() {
             document.getElementById("form-container").style.display = "block";
+            document.getElementById("prototype-buttons").style.display = "none";
         }
+
         function submitPrototype2() {
             let form = document.createElement("form");
             form.method = "POST";
             form.action = "/";
-            
+
             let input = document.createElement("input");
             input.type = "hidden";
             input.name = "prototype";
             input.value = "prototype2";
-            
+
             form.appendChild(input);
             document.body.appendChild(form);
             form.submit();
         }
-    </script>
+    </script>   
 </head>
 <body>
     <div class="container">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo" class="logo" style="width: 100px;">
+        
         <h2>Welcome!</h2>
         <h3>Select a Prototype</h3>
-        
+
+        <div id="description">
+            <p>
+                <strong>Prototype 1</strong>: Allows personalized UI settings. You can adjust text size, image size, and colors.
+            </p>
+            <p>
+                <strong>Prototype 2</strong>: A simpler interface with fewer customization options.
+            </p>
+            <p>You can test both by selecting an option below.</p>
+        </div>
+
         <div class="options">
             <button onclick="showForm()">Prototype 1</button>
             <button onclick="submitPrototype2()">Prototype 2</button>
@@ -103,6 +129,9 @@
             <h3>Enter Your Details</h3>
             <form action="/" method="post">
                 <input type="hidden" name="prototype" value="prototype1">
+
+                <label for="username">Username:</label>
+                <input type="text" name="username" required>
                 
                 <label for="age">Your Age:</label>
                 <input type="number" name="age" required>

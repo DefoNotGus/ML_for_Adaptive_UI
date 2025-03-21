@@ -10,8 +10,28 @@
             --image-size: {{ image_size | default(100, true) }}px;
             --min-card-size: calc(var(--image-size) + 50px);
             --text-size: {{ text_size | default(16, true) }}px;
+            --body-bg: #f4f4f4;
+            --header-bg: purple;
+            --text-color: #000;
+            --card-bg: #ffffff; 
+        }
+        
+
+        body {
+            background-color: var(--body-bg);
+            color: var(--text-color);
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
         }
 
+        header {
+            background-color: var(--header-bg);
+            transition: background-color 0.3s ease-in-out;
+        }
+        .course-card {
+        background-color: var(--card-bg);
+        color: var(--text-color);
+        transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
         .logo, nav a, .edit-mode, .course-title {
             font-size: var(--text-size);
         }
@@ -19,6 +39,36 @@
         .course-image img {
             width: var(--image-size);
             height: var(--image-size);
+        }
+        .settings-button {
+            cursor: pointer;
+            padding: 10px 15px;
+            background: #555;
+            color: white;
+            border-radius: 5px;
+        }
+        .sidebar {
+            position: fixed;
+            right: -350px; /* Hidden by default */
+            top: 0;
+            width: 250px;
+            height: 100%;
+            background: #222;
+            color: white;
+            padding: 20px;
+            transition: right 0.3s;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .sidebar input {
+            width: 100%;
+        }
+        .sidebar-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -33,9 +83,28 @@
                 <li><a href="#">Staff</a></li>
             </ul>
         </nav>
-        <div class="edit-mode" id="edit-mode-button">Edit mode</div>
+        <div class="settings-button" onclick="toggleSidebar()">Settings</div>
     </header>
     
+    <div class="sidebar" id="sidebar">
+        <button onclick="toggleSidebar()" class="close-button">✖ Close</button>
+        <label>Font Size:</label>
+        <input type="range" id="fontSizeSlider" min="10" max="50" value="16">
+    
+        <label>Icon Size:</label>
+        <input type="range" id="iconSizeSlider" min="150" max="500" value="250">
+    
+        <label>Body Color:</label>
+        <input type="color" id="bodyColorPicker">
+    
+        <label>Header Color:</label>
+        <input type="color" id="headerColorPicker">
+    
+        <label>Dark Mode:</label>
+        <input type="checkbox" id="darkModeToggle">
+    </div>
+    
+
     <div class="container">
         <div class="course-grid">
             {% for i in range(course_modules|length) %}
@@ -53,5 +122,41 @@
             {% endfor %}
         </div>
     </div>
+    <script>
+        function toggleSidebar() {
+            let sidebar = document.getElementById('sidebar');
+            sidebar.style.right = sidebar.style.right === '0px' ? '-350px' : '0px';
+        }
+
+        document.getElementById('fontSizeSlider').addEventListener('input', function() {
+            document.documentElement.style.setProperty('--text-size', this.value + 'px');
+        });
+
+        document.getElementById('iconSizeSlider').addEventListener('input', function() {
+            document.documentElement.style.setProperty('--image-size', this.value + 'px');
+        });
+
+        document.getElementById('bodyColorPicker').addEventListener('input', function() {
+            document.documentElement.style.setProperty('--body-bg', this.value);
+        });
+
+        document.getElementById('headerColorPicker').addEventListener('input', function() {
+            document.documentElement.style.setProperty('--header-bg', this.value);
+        });
+
+        document.getElementById('darkModeToggle').addEventListener('change', function() {
+            if (this.checked) {
+            document.documentElement.style.setProperty("--body-bg", "#121212");
+            document.documentElement.style.setProperty("--text-color", "#fff");
+            document.documentElement.style.setProperty("--header-bg", "#1e1e1e");
+            document.documentElement.style.setProperty("--card-bg", "#333"); // Dark mode card background
+        } else {
+            document.documentElement.style.setProperty("--body-bg", "#f4f4f4");
+            document.documentElement.style.setProperty("--text-color", "#000");
+            document.documentElement.style.setProperty("--header-bg", "purple");
+            document.documentElement.style.setProperty("--card-bg", "#ffffff"); // Light mode card background
+        }
+        });
+    </script>
 </body>
 </html>
