@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        .error-message {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h3>Join our research</h3>
+    {% if username_exists %}
+        <p class="error-message">Username already exists. Please choose a different username.</p>
+    {% endif %}
+    <div class="container">
+    <form action="/register" method="post">
+        <label for="username">Username:</label>
+        <input type="text" name="username" {% if username_exists %} value="" {% endif %} required><br><br>
+
+        <label for="age">Your Age:</label>
+        <input type="number" name="age" value="{{ age or '' }}" required><br><br>
+
+        <label for="digital_challenges">Select Any Digital Challenges:</label>
+        <select name="digital_challenges">
+            <option value="">-- Select an option --</option>
+            <option value="0" {% if digital_challenges == '0' %} selected {% endif %}>None</option>
+            <option value="1" {% if digital_challenges == '1' %} selected {% endif %}>Vision difficulties</option>
+            <option value="2" {% if digital_challenges == '2' %} selected {% endif %}>Hand tremors or motor control issues</option>
+            <option value="3" {% if digital_challenges == '3' %} selected {% endif %}>Difficulty with precise clicking/tapping</option>
+            <option value="4" {% if digital_challenges == '4' %} selected {% endif %}>Memory or cognitive challenges</option>
+            <option value="5" {% if digital_challenges == '5' %} selected {% endif %}>Hearing impairment</option>
+        </select><br><br>
+
+        <label for="application_challenges">Select Any Application Challenges:</label>
+        <select name="application_challenges">
+            <option value="">-- Select an option --</option>
+            <option value="0" {% if application_challenges == '0' %} selected {% endif %}>None</option>
+            <option value="1" {% if application_challenges == '1' %} selected {% endif %}>Difficulty reading small text</option>
+            <option value="2" {% if application_challenges == '2' %} selected {% endif %}>Difficulty navigating menus</option>
+            <option value="3" {% if application_challenges == '3' %} selected {% endif %}>Difficulty distinguishing colors</option>
+            <option value="4" {% if application_challenges == '4' %} selected {% endif %}>Difficulty understanding instructions</option>
+            <option value="5" {% if application_challenges == '5' %} selected {% endif %}>Difficulty clicking small buttons/icons</option>
+            <option value="6" {% if application_challenges == '6' %} selected {% endif %}>Slow application performance</option>
+            <option value="7" {% if application_challenges == '7' %} selected {% endif %}>Unclear sound/audio</option>
+        </select><br><br>
+
+        <label for="education_level">Highest Level of Education:</label>
+        <select name="education_level">
+            <option value="">-- Select an option --</option>
+            <option value="1" {% if education_level == '1' %} selected {% endif %}>None completed yet</option>
+            <option value="2" {% if education_level == '2' %} selected {% endif %}>Primary/Elementary school</option>
+            <option value="3" {% if education_level == '3' %} selected {% endif %}>Secondary/High school/GCSE</option>
+            <option value="4" {% if education_level == '4' %} selected {% endif %}>A-levels or equivalent</option>
+            <option value="5" {% if education_level == '5' %} selected {% endif %}>Vocational training/Trade school</option>
+            <option value="6" {% if education_level == '6' %} selected {% endif %}>Bachelor's degree</option>
+            <option value="7" {% if education_level == '7' %} selected {% endif %}>Master's degree</option>
+            <option value="8" {% if education_level == '8' %} selected {% endif %}>Doctorate or equivalent</option>
+            <option value="9" {% if education_level == '9' %} selected {% endif %}>Prefer not to answer</option>
+            <option value="10" {% if education_level == '10' %} selected {% endif %}>Overseas/Different Education Systems</option>
+        </select><br><br>
+
+        <label for="current_device">Device You Use Most:</label>
+        <select name="current_device">
+            <option value="">-- Select an option --</option>
+            <option value="1" {% if current_device == '1' %} selected {% endif %}>Laptop</option>
+            <option value="2" {% if current_device == '2' %} selected {% endif %}>PC Desktop</option>
+            <option value="3" {% if current_device == '3' %} selected {% endif %}>Mobile Phone</option>
+            <option value="4" {% if current_device == '4' %} selected {% endif %}>Tablet or iPad</option>
+        </select><br><br>
+
+        <label for="password">Choose a password <br>(Don't use a real password):</label>
+        <input type="password" name="password" required><br><br>
+
+        <input type="hidden" name="next_page" value="{{ next_page or '' }}">
+        <button type="submit">Submit</button>
+    </form>
+    </div>
+</body>
+</html>

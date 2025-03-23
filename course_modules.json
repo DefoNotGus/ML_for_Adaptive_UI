@@ -1,0 +1,40 @@
+{
+    "modules": [
+      {
+        "name": "Math Fundamentals",
+        "topics": ["Geometry", "Algebra", "Limits", "Calculus", "Probability", "Statistics", "Linear Algebra", "Trigonometry", "Number Theory", "Differential Equations"]
+      },
+      {
+        "name": "Python Basics",
+        "topics": ["Syntax", "Variables", "Loops", "Functions", "Lists", "Dictionaries", "File Handling", "Classes", "Error Handling", "Modules"]
+      },
+      {
+        "name": "Cybersecurity",
+        "topics": ["Encryption", "Network Security", "Ethical Hacking", "Firewalls", "Malware Analysis", "Phishing Prevention", "Password Security", "Penetration Testing", "Data Protection", "Incident Response"]
+      },
+      {
+        "name": "Machine Learning",
+        "topics": ["Supervised Learning", "Unsupervised Learning", "Neural Networks", "Regression", "Classification", "Clustering", "Deep Learning", "Feature Engineering", "Model Evaluation", "AI Ethics"]
+      },
+      {
+        "name": "Data Science",
+        "topics": ["Data Cleaning", "Data Visualization", "Pandas", "Numpy", "SQL", "Big Data", "EDA", "Statistics", "Machine Learning", "Python for Data Science"]
+      },
+      {
+        "name": "Web Development",
+        "topics": ["HTML", "CSS", "JavaScript", "React", "Django", "Flask", "REST APIs", "Database Integration", "Web Security", "Full-Stack Development"]
+      },
+      {
+        "name": "Networking",
+        "topics": ["OSI Model", "TCP/IP", "Routing", "Switching", "DNS", "HTTP/HTTPS", "VPN", "Network Security", "Wireless Networks", "Network Troubleshooting"]
+      },
+      {
+        "name": "Cloud Computing",
+        "topics": ["AWS", "Azure", "Google Cloud", "Containers", "Kubernetes", "Serverless", "Virtual Machines", "Cloud Security", "Cloud Storage", "CI/CD"]
+      },
+      {
+        "name": "Ethical Hacking",
+        "topics": ["Reconnaissance", "Exploitation", "Privilege Escalation", "Malware Analysis", "Social Engineering", "Password Cracking", "Web App Security", "Network Penetration", "Wireless Hacking", "Forensics"]
+      }
+    ]
+  }
