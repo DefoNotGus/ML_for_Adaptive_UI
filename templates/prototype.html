@@ -1,20 +1,31 @@
+<!-- PROTOTYPE.HTML-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moodle Mockup - Prediction Results</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/prototype.css') }}">
     <style>
-        :root {
+        :root { 
             --image-size: {{ image_size | default(100, true) }}px;
             --min-card-size: calc(var(--image-size) + 50px);
             --text-size: {{ text_size | default(16, true) }}px;
-            --body-bg: #f4f4f4;
-            --header-bg: purple;
-            --text-color: #000;
-            --card-bg: #ffffff; 
+            --body-bg: {{ bgcolor | default('#f4f4f4', true) }};
+            --header-bg: {{ hcolor | default('purple', true) }};
+            
+            /* Automatically set text color based on body background */
+            --text-color: color-contrast(var(--body-bg) vs black, #ffffff);
+
+            /* Generate a card background slightly darker or lighter than body */
+            --card-bg: color-mix(in srgb, var(--body-bg) 70%, rgb(225, 225, 218));
         }
+
+
+
         
 
         body {
@@ -89,10 +100,10 @@
     <div class="sidebar" id="sidebar">
         <button onclick="toggleSidebar()" class="close-button">✖ Close</button>
         <label>Font Size:</label>
-        <input type="range" id="fontSizeSlider" min="10" max="50" value="16">
-    
+        <input type="range" id="fontSizeSlider" min="10" max="50" value="{{ text_size | default(16, true) }}">
+        
         <label>Icon Size:</label>
-        <input type="range" id="iconSizeSlider" min="150" max="500" value="250">
+        <input type="range" id="iconSizeSlider" min="150" max="500" value="{{ image_size | default(250, true) }}">        
     
         <label>Body Color:</label>
         <input type="color" id="bodyColorPicker">
@@ -102,7 +113,18 @@
     
         <label>Dark Mode:</label>
         <input type="checkbox" id="darkModeToggle">
-        <a href="{{ url_for('logout') }}">Logout</a>
+        
+        <!-- Account Buttons-->
+        <button onclick="savePreferences()">Save</button>       
+        <a href="{{ url_for('logout') }}" onclick="forceReload()">Logout</a>
+        <div style="text-align: center;">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" 
+                 style="width: 50px; height: 50px; cursor: pointer;" 
+                 onclick="recalculateUI()">
+        </div> 
+        <button onclick="changePassword()">Change Password</button>
+        <button onclick="deleteAccount()">Delete Account</button>
+        <p id="saveMessage" style="color: green; display: none;">Changes have been saved</p> 
     </div>
     
 
@@ -128,36 +150,128 @@
             let sidebar = document.getElementById('sidebar');
             sidebar.style.right = sidebar.style.right === '0px' ? '-350px' : '0px';
         }
-
+    
         document.getElementById('fontSizeSlider').addEventListener('input', function() {
             document.documentElement.style.setProperty('--text-size', this.value + 'px');
         });
-
+    
         document.getElementById('iconSizeSlider').addEventListener('input', function() {
             document.documentElement.style.setProperty('--image-size', this.value + 'px');
         });
-
+    
         document.getElementById('bodyColorPicker').addEventListener('input', function() {
             document.documentElement.style.setProperty('--body-bg', this.value);
         });
-
+    
         document.getElementById('headerColorPicker').addEventListener('input', function() {
             document.documentElement.style.setProperty('--header-bg', this.value);
         });
-
+    
         document.getElementById('darkModeToggle').addEventListener('change', function() {
             if (this.checked) {
-            document.documentElement.style.setProperty("--body-bg", "#121212");
-            document.documentElement.style.setProperty("--text-color", "#fff");
-            document.documentElement.style.setProperty("--header-bg", "#1e1e1e");
-            document.documentElement.style.setProperty("--card-bg", "#333"); // Dark mode card background
-        } else {
-            document.documentElement.style.setProperty("--body-bg", "#f4f4f4");
-            document.documentElement.style.setProperty("--text-color", "#000");
-            document.documentElement.style.setProperty("--header-bg", "purple");
-            document.documentElement.style.setProperty("--card-bg", "#ffffff"); // Light mode card background
-        }
+                document.documentElement.style.setProperty("--body-bg", "#121212");
+                document.documentElement.style.setProperty("--text-color", "#fff");
+                document.documentElement.style.setProperty("--header-bg", "#1e1e1e");
+                document.documentElement.style.setProperty("--card-bg", "#333");
+    
+                // Update color pickers to match dark mode colors
+                document.getElementById("bodyColorPicker").value = "#121212";
+                document.getElementById("headerColorPicker").value = "#1e1e1e";
+    
+            } else {
+                document.documentElement.style.setProperty("--body-bg", "#f4f4f4");
+                document.documentElement.style.setProperty("--text-color", "#000");
+                document.documentElement.style.setProperty("--header-bg", "#800080");
+                document.documentElement.style.setProperty("--card-bg", "#ffffff");
+    
+                // Reset color pickers to light mode defaults
+                document.getElementById("bodyColorPicker").value = "#f4f4f4";
+                document.getElementById("headerColorPicker").value = "#800080";
+            }
         });
-    </script>
+    
+        document.addEventListener("DOMContentLoaded", function() {
+            document.documentElement.style.setProperty('--text-size', document.getElementById('fontSizeSlider').value + 'px');
+            document.documentElement.style.setProperty('--image-size', document.getElementById('iconSizeSlider').value + 'px');
+            let bodyColor = "{{ bgcolor | default('#f4f4f4', true) }}";
+            let headerColor = "{{ hcolor | default('purple', true) }}";
+    
+            document.documentElement.style.setProperty('--body-bg', bodyColor);
+            document.documentElement.style.setProperty('--header-bg', headerColor);
+    
+            document.getElementById("bodyColorPicker").value = bodyColor;
+            document.getElementById("headerColorPicker").value = headerColor;
+        });
+    
+        function savePreferences() {
+            const data = {
+                text_size: document.getElementById("fontSizeSlider").value,
+                image_size: document.getElementById("iconSizeSlider").value,
+                bgcolor: document.getElementById("bodyColorPicker").value,
+                hcolor: document.getElementById("headerColorPicker").value
+            };
+    
+            console.log("Sending Data:", data);  
+    
+            fetch("/save_preferences", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log("Server Response:", result);  
+                document.getElementById("saveMessage").style.display = "block";
+                setTimeout(() => {
+                    document.getElementById("saveMessage").style.display = "none";
+                }, 2000);
+            });
+        }
+    
+        function recalculateUI() {
+            fetch("/recalculate_ui", { method: "POST" })
+            .then(response => response.json())
+            .then(data => {
+                document.documentElement.style.setProperty("--text-size", data.text_size + "px");
+                document.documentElement.style.setProperty("--image-size", data.image_size + "px");
+    
+                // Update sliders to reflect new values
+                document.getElementById("fontSizeSlider").value = data.text_size;
+                document.getElementById("iconSizeSlider").value = data.image_size;
+    
+                alert("User preferences updated using ML model!");
+            });
+        }
+    
+        function changePassword() {
+            let newPassword = prompt("Enter your new password:");
+            if (newPassword) {
+                fetch("/change_password", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ new_password: newPassword })
+                })
+                .then(response => response.json())
+                .then(data => alert(data.message));
+            }
+        }
+    
+        function deleteAccount() {
+            if (confirm("Are you sure you want to delete your account? This cannot be undone!")) {
+                fetch("/delete_account", { method: "POST" })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    window.location.href = "/";  
+                });
+            }
+        }
+        function forceReload() {
+            setTimeout(() => {
+                window.location.href = "{{ url_for('login') }}";
+                window.location.reload(true);  // Forces reload without cache
+            }, 100);
+        }
+    </script>       
 </body>
 </html>

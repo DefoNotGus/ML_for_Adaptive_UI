@@ -55,10 +55,6 @@ label {
     margin-top: 8px; /* Reduced top margin */
 }
 
-.error-message {
-    color: red;
-    margin-top: 8px;
-}
 
 /* Generic container styling */
 .container {
@@ -95,4 +91,30 @@ th {
 
 tr:nth-child(even) {
     background-color: #f9f9f9;
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+}
+.button-container {
+    width: 70%;
+    margin: 20px auto; /* Centers the container */
+    display: flex;
+    justify-content: space-evenly; /* Even spacing between buttons */
+    align-items: center;
+    padding: 10px 0;
+}
+
+button {
+    padding: 10px 15px;
+    margin: 5px;
+    cursor: pointer;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+button:hover {
+    background-color: #0056b3;
 }

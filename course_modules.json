@@ -1,40 +1,49 @@
 {
-    "modules": [
-      {
-        "name": "Math Fundamentals",
-        "topics": ["Geometry", "Algebra", "Limits", "Calculus", "Probability", "Statistics", "Linear Algebra", "Trigonometry", "Number Theory", "Differential Equations"]
-      },
-      {
-        "name": "Python Basics",
-        "topics": ["Syntax", "Variables", "Loops", "Functions", "Lists", "Dictionaries", "File Handling", "Classes", "Error Handling", "Modules"]
-      },
-      {
-        "name": "Cybersecurity",
-        "topics": ["Encryption", "Network Security", "Ethical Hacking", "Firewalls", "Malware Analysis", "Phishing Prevention", "Password Security", "Penetration Testing", "Data Protection", "Incident Response"]
-      },
-      {
-        "name": "Machine Learning",
-        "topics": ["Supervised Learning", "Unsupervised Learning", "Neural Networks", "Regression", "Classification", "Clustering", "Deep Learning", "Feature Engineering", "Model Evaluation", "AI Ethics"]
-      },
-      {
-        "name": "Data Science",
-        "topics": ["Data Cleaning", "Data Visualization", "Pandas", "Numpy", "SQL", "Big Data", "EDA", "Statistics", "Machine Learning", "Python for Data Science"]
-      },
-      {
-        "name": "Web Development",
-        "topics": ["HTML", "CSS", "JavaScript", "React", "Django", "Flask", "REST APIs", "Database Integration", "Web Security", "Full-Stack Development"]
-      },
-      {
-        "name": "Networking",
-        "topics": ["OSI Model", "TCP/IP", "Routing", "Switching", "DNS", "HTTP/HTTPS", "VPN", "Network Security", "Wireless Networks", "Network Troubleshooting"]
-      },
-      {
-        "name": "Cloud Computing",
-        "topics": ["AWS", "Azure", "Google Cloud", "Containers", "Kubernetes", "Serverless", "Virtual Machines", "Cloud Security", "Cloud Storage", "CI/CD"]
-      },
-      {
-        "name": "Ethical Hacking",
-        "topics": ["Reconnaissance", "Exploitation", "Privilege Escalation", "Malware Analysis", "Social Engineering", "Password Cracking", "Web App Security", "Network Penetration", "Wireless Hacking", "Forensics"]
-      }
-    ]
-  }
+  "modules": [
+    {
+      "name": "Math Fundamentals",
+      "topics": ["Geometry", "Algebra", "Limits", "Calculus", "Probability", "Statistics", "Linear Algebra", "Trigonometry", "Number Theory", "Differential Equations"],
+      "assessments": ["Exam", "Report", "Presentation"]
+    },
+    {
+      "name": "Programming Basics",
+      "topics": ["Syntax", "Variables", "Loops", "Functions", "Data Structures", "File Handling", "Object-Oriented Programming", "Error Handling", "Modules", "Algorithms"],
+      "assessments": ["Group project", "Exam", "Report", "Presentation"]
+    },
+    {
+      "name": "Geography",
+      "topics": ["Physical Geography", "Human Geography", "Cartography", "GIS", "Climate Change", "Environmental Studies", "Urban Geography", "Geopolitics", "Regional Geography", "Economic Geography"],
+      "assessments": ["Report", "Presentation"]
+    },
+    {
+      "name": "Physics",
+      "topics": ["Mechanics", "Thermodynamics", "Electromagnetism", "Optics", "Quantum Mechanics", "Relativity", "Nuclear Physics", "Astrophysics", "Particle Physics", "Solid State Physics"],
+      "assessments": ["Exam", "Report", "Group project"]
+    },
+    {
+      "name": "Biology",
+      "topics": ["Cell Biology", "Genetics", "Ecology", "Evolution", "Physiology", "Microbiology", "Botany", "Zoology", "Biochemistry", "Bioinformatics"],
+      "assessments": ["Report", "Presentation", "Exam"]
+    },
+    {
+      "name": "History",
+      "topics": ["Ancient History", "Medieval History", "Modern History", "World History", "Political History", "Social History", "Economic History", "Cultural History", "Historiography", "Archaeology"],
+      "assessments": ["Report", "Presentation", "Group project"]
+    },
+    {
+      "name": "Linguistics",
+      "topics": ["Phonetics", "Phonology", "Morphology", "Syntax", "Semantics", "Pragmatics", "Sociolinguistics", "Historical Linguistics", "Psycholinguistics", "Computational Linguistics"],
+      "assessments": ["Exam", "Report"]
+    },
+    {
+      "name": "Philosophy",
+      "topics": ["Metaphysics", "Epistemology", "Ethics", "Logic", "Political Philosophy", "Aesthetics", "Philosophy of Science", "Philosophy of Mind", "Existentialism", "Phenomenology"],
+      "assessments": ["Report", "Presentation", "Exam", "Group project"]
+    },
+    {
+      "name": "Economics",
+      "topics": ["Microeconomics", "Macroeconomics", "Econometrics", "International Economics", "Development Economics", "Public Economics", "Behavioral Economics", "Financial Economics", "Labor Economics", "Environmental Economics"],
+      "assessments": ["Exam", "Report", "Group project"]
+    }
+  ]
+}

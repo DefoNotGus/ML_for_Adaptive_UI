@@ -1,17 +1,13 @@
-<!-- login.html-->
+<!-- login.html -->
 <!DOCTYPE html>
 <html>
 <head>
     <title>Login</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <style>
-        .error-message {
-            color: red;
-            margin-top: 10px;
-        }
-    </style>
 </head>
 <body>
+    <div class="container">
+        <h1>Welcome to MAUI Prototype</h1>
     <h1>Login</h1>
     {% if error %}
         <p class="error-message">{{ error }}</p>
@@ -24,5 +20,12 @@
         <input type="submit" value="Login">
     </form>
     <p>Don't have an account? <a href="/register">Register</a></p>
+    </div>
+
+    <!-- Buttons -->
+    <div class="button-container">
+        <button onclick="location.href='/'">Back to Home</button>
+        <button onclick="location.href='/dpd'">See Data Protection Disclosure</button>
+    </div>
 </body>
 </html>

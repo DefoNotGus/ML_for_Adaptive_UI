@@ -1,38 +1,26 @@
 {
     "a": {
-        "password": "23",
-        "age": "23",
-        "digital_challenges": "1",
-        "application_challenges": "2",
+        "password": "b25eaaaf9e40ea30de2856486d154630$488e10c6387d5d94bdf824cd815c65cf1576d22bf4202e8dfc58a7a4178b9297",
+        "age": "34",
+        "digital_challenges": "0",
+        "application_challenges": "0",
         "education_level": "6",
-        "current_device": "4",
-        "bgcolor": "#fff",
-        "hcolor": "#7A287E",
-        "text_size": 24.2995,
-        "image_size": 337.3302380952381
-    },
-    "b": {
-        "password": "b",
-        "age": "23",
-        "digital_challenges": "1",
-        "application_challenges": "4",
-        "education_level": "9",
-        "current_device": "3",
-        "bgcolor": "#fff",
-        "hcolor": "#7A287E",
-        "text_size": 19.648333333333333,
-        "image_size": 316.7490476190476
+        "current_device": "2",
+        "bgcolor": "#ffffff",
+        "hcolor": "#c011c0",
+        "text_size": "25",
+        "image_size": "329"
     },
     "c": {
-        "password": "a70b7775c5ff0044cbb6260c972ecb74$1c2306db905cb8a2b8cbb5a30eeb3637f44f6e2463c3118cc9b2249e9b98c26d",
-        "age": "44",
-        "digital_challenges": "2",
-        "application_challenges": "1",
-        "education_level": "5",
-        "current_device": "2",
-        "bgcolor": "#fff",
-        "hcolor": "#7A287E",
-        "text_size": 29.763499999999993,
-        "image_size": 405.22833333333335
+        "password": "51c97588752d6e6ca40606eed9bdf013$e770d6e833c442c066b9b70852077790c062d83b9b1f8805acb6836b3d8a718a",
+        "age": "66",
+        "digital_challenges": "0",
+        "application_challenges": "0",
+        "education_level": "1",
+        "current_device": "1",
+        "bgcolor": "#121212",
+        "hcolor": "#1e1e1e",
+        "text_size": "39",
+        "image_size": "419"
     }
 }
