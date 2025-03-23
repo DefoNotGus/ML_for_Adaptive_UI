@@ -4,6 +4,7 @@ import numpy as np
 import json
 import os
 import hashlib
+from urllib.parse import unquote
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -102,9 +103,43 @@ def testin():
 
     return response
 
+@app.route('/module/<module_name>')
+def module_page(module_name):
+    """Handles module page rendering with session validation and cache prevention."""
+    if "username" not in session:
+        return redirect(url_for("login"))
+
+    users = load_data(USER_DATA_FILE, {})
+    username = session.get("username", "guest")
+    user_data = users.get(username, {"text_size": 16, "image_size": 100, "bgcolor": "#fff", "hcolor": "#7A287E"})
+
+    modules_data = load_data(MODULES_FILE, {}).get("modules", [])
+
+    # Decode and normalize the module_name from the URL
+    decoded_module_name = unquote(module_name).strip().lower()
+
+    # Find the matching module
+    selected_module = next(
+        (module for module in modules_data if module["name"].strip().lower() == decoded_module_name),
+        None
+    )
+
+    if not selected_module:
+        return "Module not found", 404
+
+    response = render_template("module.html", module=selected_module, **user_data)
+
+    # Prevent caching
+    response = app.make_response(response)
+    response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "0"
+
+    return response
+
 @app.route('/insight')
 def insight():
-    response = render_template("insights.html")
+    response = render_template("insight.html")
 
     # Prevent caching
     response = app.make_response(response)

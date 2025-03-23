@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ module.name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/prototype.css') }}">
+    <style>
+        :root {
+            --image-size: {{ image_size | default(100, true) }}px;
+            --text-size: {{ text_size | default(16, true) }}px;
+            --body-bg: {{ bgcolor | default('#f4f4f4', true) }};
+            --header-bg: {{ hcolor | default('purple', true) }};
+            --text-color: black;
+            --sidebar-bg: rgba(244, 244, 244, 0.8);
+            --card-bg: white;
+        }
+
+        body {
+            background-color: var(--body-bg);
+            color: var(--text-color);
+            font-size: var(--text-size);
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background: var(--header-bg);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: calc(var(--text-size) * 0.75) 20px;
+            font-size: calc(var(--text-size) * 1.2);
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: calc(var(--text-size) * 1.5);
+        }
+
+        nav {
+            margin-left: auto;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            gap: calc(var(--text-size) * 1);
+        }
+
+        nav ul li {
+            margin: 0;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: var(--text-size);
+        }
+
+        .module-container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 20%;
+            background: var(--sidebar-bg);
+            padding: calc(var(--text-size) * 0.8);
+            border-right: 2px solid #ddd;
+            overflow-y: auto;
+            font-size: var(--text-size);
+        }
+
+        .sidebar h2 {
+            margin-bottom: calc(var(--text-size) * 0.5);
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin-bottom: calc(var(--text-size) * 0.5);
+        }
+
+        .sidebar ul li button {
+            color: black;
+            border: none;
+            padding: calc(var(--text-size) * 0.5);
+            cursor: pointer;
+            font-size: var(--text-size);
+            width: 100%;
+            text-align: left;
+            background: transparent;
+        }
+
+        .sidebar ul li button:hover {
+            background: #e0e0e0;
+        }
+
+        .content-area {
+            flex: 1;
+            padding: calc(var(--text-size) * 1.2);
+            font-size: var(--text-size);
+        }
+
+        .content-box {
+            border: 2px solid var(--header-bg);
+            padding: calc(var(--text-size) * 0.8);
+            background: var(--card-bg);
+            min-height: 200px;
+        }
+    </style>
+    <script>
+        function loadContent(content) {
+            document.getElementById("content-display").innerHTML = `<p>${content}</p>`;
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="logo">MockOODLE</div>
+        <nav>
+            <ul>
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="#">Welcome</a></li>
+                <li><a href="#">Support</a></li>
+                <li><a href="#">Staff</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="module-container">
+        <div class="sidebar">
+            <h2>Topics</h2>
+            <ul>
+                {% for topic in module.topics %}
+                <li>
+                    <button onclick="loadContent('Content for {{ topic }}')">{{ topic }}</button>
+                </li>
+                {% endfor %}
+            </ul>
+
+            <h2>Assessments</h2>
+            <ul>
+                {% for assessment in module.assessments %}
+                <li>
+                    <button onclick="loadContent('Details for {{ assessment }}')">{{ assessment }}</button>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="content-area">
+            <div id="content-display" class="content-box">
+                <h2>{{ module.name }} - Course Content</h2>
+            
+                <p>Select a topic or assessment to display content here.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

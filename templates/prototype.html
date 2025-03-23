@@ -21,7 +21,7 @@
             --text-color: color-contrast(var(--body-bg) vs black, #ffffff);
 
             /* Generate a card background slightly darker or lighter than body */
-            --card-bg: color-mix(in srgb, var(--body-bg) 20%, rgb(225, 225, 218));
+            --card-bg: color-mix(in srgb, var(--body-bg) 10%, rgb(225, 225, 218));
         }
 
 
@@ -131,7 +131,7 @@
     <div class="container">
         <div class="course-grid">
             {% for module in course_modules.modules %}
-                <div class="course-card">
+                <a href="{{ url_for('module_page', module_name=module.name) }}" class="course-card">
                     <div class="course-image">
                         <img src="{{ url_for('static', filename='img/' + module.image) }}" 
                             alt="{{ module.name }} Image">
@@ -141,11 +141,11 @@
                             {{ module.name }}
                         </div>
                     </div>
-                </div>
+                </a>
             {% endfor %}
-     
         </div>
     </div>
+    
     <script>
         function toggleSidebar() {
             let sidebar = document.getElementById('sidebar');
