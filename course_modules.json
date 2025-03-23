@@ -3,47 +3,56 @@
     {
       "name": "Math Fundamentals",
       "topics": ["Geometry", "Algebra", "Limits", "Calculus", "Probability", "Statistics", "Linear Algebra", "Trigonometry", "Number Theory", "Differential Equations"],
-      "assessments": ["Exam", "Report", "Presentation"]
+      "assessments": ["Exam", "Report", "Presentation"],
+      "image": "icon1.png"
     },
     {
       "name": "Programming Basics",
       "topics": ["Syntax", "Variables", "Loops", "Functions", "Data Structures", "File Handling", "Object-Oriented Programming", "Error Handling", "Modules", "Algorithms"],
-      "assessments": ["Group project", "Exam", "Report", "Presentation"]
+      "assessments": ["Group project", "Exam", "Report", "Presentation"],
+      "image": "icon2.png"
     },
     {
       "name": "Geography",
       "topics": ["Physical Geography", "Human Geography", "Cartography", "GIS", "Climate Change", "Environmental Studies", "Urban Geography", "Geopolitics", "Regional Geography", "Economic Geography"],
-      "assessments": ["Report", "Presentation"]
+      "assessments": ["Report", "Presentation"],
+      "image": "icon3.png"
     },
     {
       "name": "Physics",
       "topics": ["Mechanics", "Thermodynamics", "Electromagnetism", "Optics", "Quantum Mechanics", "Relativity", "Nuclear Physics", "Astrophysics", "Particle Physics", "Solid State Physics"],
-      "assessments": ["Exam", "Report", "Group project"]
+      "assessments": ["Exam", "Report", "Group project"],
+      "image": "icon4.png"
     },
     {
       "name": "Biology",
       "topics": ["Cell Biology", "Genetics", "Ecology", "Evolution", "Physiology", "Microbiology", "Botany", "Zoology", "Biochemistry", "Bioinformatics"],
-      "assessments": ["Report", "Presentation", "Exam"]
+      "assessments": ["Report", "Presentation", "Exam"],
+      "image": "icon5.png"
     },
     {
       "name": "History",
       "topics": ["Ancient History", "Medieval History", "Modern History", "World History", "Political History", "Social History", "Economic History", "Cultural History", "Historiography", "Archaeology"],
-      "assessments": ["Report", "Presentation", "Group project"]
+      "assessments": ["Report", "Presentation", "Group project"],
+      "image": "icon6.png"
     },
     {
       "name": "Linguistics",
       "topics": ["Phonetics", "Phonology", "Morphology", "Syntax", "Semantics", "Pragmatics", "Sociolinguistics", "Historical Linguistics", "Psycholinguistics", "Computational Linguistics"],
-      "assessments": ["Exam", "Report"]
+      "assessments": ["Exam", "Report"],
+      "image": "icon7.png"
     },
     {
       "name": "Philosophy",
       "topics": ["Metaphysics", "Epistemology", "Ethics", "Logic", "Political Philosophy", "Aesthetics", "Philosophy of Science", "Philosophy of Mind", "Existentialism", "Phenomenology"],
-      "assessments": ["Report", "Presentation", "Exam", "Group project"]
+      "assessments": ["Report", "Presentation", "Exam", "Group project"],
+      "image": "icon8.png"
     },
     {
       "name": "Economics",
       "topics": ["Microeconomics", "Macroeconomics", "Econometrics", "International Economics", "Development Economics", "Public Economics", "Behavioral Economics", "Financial Economics", "Labor Economics", "Environmental Economics"],
-      "assessments": ["Exam", "Report", "Group project"]
+      "assessments": ["Exam", "Report", "Group project"],
+      "image": "icon9.png"
     }
   ]
 }

@@ -1,47 +1,89 @@
+<!-- PROTOTYPE.HTML-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moodle Mockup - Prediction Results</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/result.css') }}">
-    <script src="{{ url_for('static', filename='scr/result.js') }}" defer></script>
-    <script>
-        // Pass Flask variables to JavaScript
-        window.flaskData = {
-            textSize: JSON.parse('{{ text_size | default(16) | tojson | safe }}'),
-            imageSize: JSON.parse('{{ image_size | default(100) | tojson | safe }}')
-        };
-    </script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/prototype.css') }}">
+    <style>
+        :root { 
+            --image-size: {{ image_size | default(100, true) }}px;
+            --min-card-size: calc(var(--image-size) + 50px);
+            --text-size: {{ text_size | default(16, true) }}px;
+            --body-bg: {{ bgcolor | default('#f4f4f4', true) }};
+            --header-bg: {{ hcolor | default('purple', true) }};
+            
+            /* Automatically set text color based on body background */
+            --text-color: color-contrast(var(--body-bg) vs black, #ffffff);
+
+            /* Generate a card background slightly darker or lighter than body */
+            --card-bg: color-mix(in srgb, var(--body-bg) 70%, rgb(225, 225, 218));
+        }
+
+
+
+        
+
+        body {
+            background-color: var(--body-bg);
+            color: var(--text-color);
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+
+        header {
+            background-color: var(--header-bg);
+            transition: background-color 0.3s ease-in-out;
+        }
+        .course-card {
+        background-color: var(--card-bg);
+        color: var(--text-color);
+        transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+        .logo, nav a, .edit-mode, .course-title {
+            font-size: var(--text-size);
+        }
+
+        .course-image img {
+            width: var(--image-size);
+            height: var(--image-size);
+        }
+        .settings-button {
+            cursor: pointer;
+            padding: 10px 15px;
+            background: #555;
+            color: white;
+            border-radius: 5px;
+        }
+        .sidebar {
+            position: fixed;
+            right: -350px; /* Hidden by default */
+            top: 0;
+            width: 250px;
+            height: 100%;
+            background: #222;
+            color: white;
+            padding: 20px;
+            transition: right 0.3s;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .sidebar input {
+            width: 100%;
+        }
+        .sidebar-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <div id="filter-popup" class="popup">
-        <div class="popup-content">
-            <h3>Adjust Display Settings</h3>
-            <p>Use the controls below to adjust text and image sizes to suit your preferences.</p>
-            
-            <div class="controls">
-                <div class="control">
-                    <label for="text-size">Text Size</label>
-                    <button id="text-increase">A+</button>
-                    <button id="text-decrease">A-</button>
-                    <p id="text-size-display">Current text size: </p>
-                </div>
-                
-                <div class="control">
-                    <label for="image-size">Image Size</label>
-                    <button id="image-increase">🔼</button>
-                    <button id="image-decrease">🔽</button>
-                    <p id="image-size-display">Current image size: </p>
-                </div>
-            </div>
-    
-            <br><br>
-            <button id="accept-settings" class="btn">Accept Settings</button>
-        </div>
-    </div>
-
-
     <header>
         <div class="logo">MockOODLE</div>
         <nav>
@@ -52,133 +94,154 @@
                 <li><a href="#">Staff</a></li>
             </ul>
         </nav>
-        <div class="edit-mode" id="edit-mode-button">Edit mode</div>
-        <a href="{{ url_for('logout') }}">Logout</a>
+        <div class="settings-button" onclick="toggleSidebar()">Settings</div>
     </header>
-
-    <div class="container" id="linear-container">
-        <div class="course-overview">
-            <h2>Course overview</h2>
-            <div class="filters">
-                <select>
-                    <option value="all">All</option>
-                </select>
-                <input type="text" placeholder="Search">
-                <select>
-                    <option value="course-name">Sort by course name</option>
-                </select>
-                <button>Card</button>
-                <button>+</button>
-            </div>
     
-            <div class="linear-course-list">
-                <div class="linear-course-item">
-                    <div class="linear-course-image"></div>
-                    <div class="linear-course-details">
-                        <div class="linear-course-title">★ [2024/2025] CM4025 - Enterprise Web Systems ...</div>
-                        <div class="linear-course-subtitle">Sem 2</div>
-                        <div class="linear-course-progress">0% complete</div>
-                    </div>
-                </div>
-    
-                <div class="linear-course-item">
-                    <div class="linear-course-image"></div>
-                    <div class="linear-course-details">
-                        <div class="linear-course-title">[2024/2025] CM4105 - Honours Individual Project</div>
-                        <div class="linear-course-subtitle">2024/2025</div>
-                        <div class="linear-course-progress">20% complete</div>
-                    </div>
-                </div>
-    
-                <div class="linear-course-item">
-                    <div class="linear-course-image"></div>
-                    <div class="linear-course-details">
-                        <div class="linear-course-title">[2024/2025] CM4125 - Data Viz</div>
-                        <div class="linear-course-subtitle">2024/2025</div>
-                        <div class="linear-course-progress">4% complete</div>
-                    </div>
-                </div>
-    
-                <div class="linear-course-item">
-                    <div class="linear-course-image"></div>
-                    <div class="linear-course-details">
-                        <div class="linear-course-title">(Course Welcome Area) PRF192 - BSc (Hons) Computing ...</div>
-                        <div class="linear-course-subtitle">Course Welcome Areas</div>
-                        <div class="linear-course-progress"></div>
-                    </div>
-                </div>
-    
-                <div class="linear-course-item">
-                    <div class="linear-course-image"></div>
-                    <div class="linear-course-details">
-                        <div class="linear-course-title">[General Study Area] Draft Coach For Students</div>
-                        <div class="linear-course-subtitle">Information Areas</div>
-                        <div class="linear-course-progress"></div>
-                    </div>
-                </div>
-    
-                <div class="linear-course-item">
-                    <div class="linear-course-image"></div>
-                    <div class="linear-course-details">
-                        <div class="linear-course-title">[General Study Area] IT Skills Study Skills & Access</div>
-                        <div class="linear-course-subtitle"></div>
-                        <div class="linear-course-progress"></div>
-                    </div>
-                </div>
-    
-                <div class="linear-course-item">
-                    <div class="linear-course-image"></div>
-                    <div class="linear-course-details">
-                        <div class="linear-course-title">[General Study Area] Maths & Stats</div>
-                        <div class="linear-course-subtitle">Study Skills & Access</div>
-                        <div class="linear-course-progress"></div>
-                    </div>
-                </div>
-    
-                <div class="linear-course-item">
-                    <div class="linear-course-image"></div>
-                    <div class="linear-course-details">
-                        <div class="linear-course-title">[General Study Area] Placement Employability</div>
-                        <div class="linear-course-subtitle"></div>
-                        <div class="linear-course-progress"></div>
-                    </div>
-                </div>
-    
-                <div class="linear-course-item">
-                    <div class="linear-course-image"></div>
-                    <div class="linear-course-details">
-                        <div class="linear-course-title">[General Study Area] Student Guidance on the use of AI</div>
-                        <div class="linear-course-subtitle">Study Skills & Access</div>
-                        <div class="linear-course-progress"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="container">
-        <div class="course-overview">
-            <h1>Course content</h3>
-            <div class="course-grid">
-                {% set course_modules = ["Introduction to Computing", "World History 101", "Fundamentals of Biology", "Advanced Programming", "European History", "Cellular Biology", "Data Structures", "Modern History", "Ecology"] %}
-                {% for i in range(1, 10) %}
-                    <div class="course-card">
-                        <div class="course-image">
-                            <img src="{{ url_for('static', filename='img/icon' ~ i ~ '.png') }}" alt="{{ course_modules[i-1] }}" class="sample-image">
-                        </div>
-                        <div class="course-details">
-                            <div class="course-title">{{ course_modules[i-1] }}</div>
-                        </div>
+        <div class="course-grid">
+            {% for i in range(course_modules|length) %}
+            <div class="course-card">
+                <div class="course-image">
+                    <img src="{{ url_for('static', filename='img/icon' ~ (i + 1) ~ '.png') }}" 
+                         alt="Course Image">
+                </div>
+                <div class="course-details">
+                    <div class="course-title">
+                        {{ course_modules[i] }}
                     </div>
-                {% endfor %}
+                </div>
             </div>
+            {% endfor %}
         </div>
     </div>
-
     <script>
-        document.getElementById('edit-mode-button').addEventListener('click', function() {
-            document.getElementById('filter-popup').classList.add('show');
+        function toggleSidebar() {
+            let sidebar = document.getElementById('sidebar');
+            sidebar.style.right = sidebar.style.right === '0px' ? '-350px' : '0px';
+        }
+    
+        document.getElementById('fontSizeSlider').addEventListener('input', function() {
+            document.documentElement.style.setProperty('--text-size', this.value + 'px');
         });
-    </script>
+    
+        document.getElementById('iconSizeSlider').addEventListener('input', function() {
+            document.documentElement.style.setProperty('--image-size', this.value + 'px');
+        });
+    
+        document.getElementById('bodyColorPicker').addEventListener('input', function() {
+            document.documentElement.style.setProperty('--body-bg', this.value);
+        });
+    
+        document.getElementById('headerColorPicker').addEventListener('input', function() {
+            document.documentElement.style.setProperty('--header-bg', this.value);
+        });
+    
+        document.getElementById('darkModeToggle').addEventListener('change', function() {
+            if (this.checked) {
+                document.documentElement.style.setProperty("--body-bg", "#121212");
+                document.documentElement.style.setProperty("--text-color", "#fff");
+                document.documentElement.style.setProperty("--header-bg", "#1e1e1e");
+                document.documentElement.style.setProperty("--card-bg", "#333");
+    
+                // Update color pickers to match dark mode colors
+                document.getElementById("bodyColorPicker").value = "#121212";
+                document.getElementById("headerColorPicker").value = "#1e1e1e";
+    
+            } else {
+                document.documentElement.style.setProperty("--body-bg", "#f4f4f4");
+                document.documentElement.style.setProperty("--text-color", "#000");
+                document.documentElement.style.setProperty("--header-bg", "#800080");
+                document.documentElement.style.setProperty("--card-bg", "#ffffff");
+    
+                // Reset color pickers to light mode defaults
+                document.getElementById("bodyColorPicker").value = "#f4f4f4";
+                document.getElementById("headerColorPicker").value = "#800080";
+            }
+        });
+    
+        document.addEventListener("DOMContentLoaded", function() {
+            document.documentElement.style.setProperty('--text-size', document.getElementById('fontSizeSlider').value + 'px');
+            document.documentElement.style.setProperty('--image-size', document.getElementById('iconSizeSlider').value + 'px');
+            let bodyColor = "{{ bgcolor | default('#f4f4f4', true) }}";
+            let headerColor = "{{ hcolor | default('purple', true) }}";
+    
+            document.documentElement.style.setProperty('--body-bg', bodyColor);
+            document.documentElement.style.setProperty('--header-bg', headerColor);
+    
+            document.getElementById("bodyColorPicker").value = bodyColor;
+            document.getElementById("headerColorPicker").value = headerColor;
+        });
+    
+        function savePreferences() {
+            const data = {
+                text_size: document.getElementById("fontSizeSlider").value,
+                image_size: document.getElementById("iconSizeSlider").value,
+                bgcolor: document.getElementById("bodyColorPicker").value,
+                hcolor: document.getElementById("headerColorPicker").value
+            };
+    
+            console.log("Sending Data:", data);  
+    
+            fetch("/save_preferences", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log("Server Response:", result);  
+                document.getElementById("saveMessage").style.display = "block";
+                setTimeout(() => {
+                    document.getElementById("saveMessage").style.display = "none";
+                }, 2000);
+            });
+        }
+    
+        function recalculateUI() {
+            fetch("/recalculate_ui", { method: "POST" })
+            .then(response => response.json())
+            .then(data => {
+                document.documentElement.style.setProperty("--text-size", data.text_size + "px");
+                document.documentElement.style.setProperty("--image-size", data.image_size + "px");
+    
+                // Update sliders to reflect new values
+                document.getElementById("fontSizeSlider").value = data.text_size;
+                document.getElementById("iconSizeSlider").value = data.image_size;
+    
+                alert("User preferences updated using ML model!");
+            });
+        }
+    
+        function changePassword() {
+            let newPassword = prompt("Enter your new password:");
+            if (newPassword) {
+                fetch("/change_password", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ new_password: newPassword })
+                })
+                .then(response => response.json())
+                .then(data => alert(data.message));
+            }
+        }
+    
+        function deleteAccount() {
+            if (confirm("Are you sure you want to delete your account? This cannot be undone!")) {
+                fetch("/delete_account", { method: "POST" })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    window.location.href = "/";  
+                });
+            }
+        }
+        function forceReload() {
+            setTimeout(() => {
+                window.location.href = "{{ url_for('login') }}";
+                window.location.reload(true);  // Forces reload without cache
+            }, 100);
+        }
+    </script>       
 </body>
 </html>

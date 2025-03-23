@@ -21,7 +21,7 @@
             --text-color: color-contrast(var(--body-bg) vs black, #ffffff);
 
             /* Generate a card background slightly darker or lighter than body */
-            --card-bg: color-mix(in srgb, var(--body-bg) 70%, rgb(225, 225, 218));
+            --card-bg: color-mix(in srgb, var(--body-bg) 20%, rgb(225, 225, 218));
         }
 
 
@@ -130,19 +130,20 @@
 
     <div class="container">
         <div class="course-grid">
-            {% for i in range(course_modules|length) %}
-            <div class="course-card">
-                <div class="course-image">
-                    <img src="{{ url_for('static', filename='img/icon' ~ (i + 1) ~ '.png') }}" 
-                         alt="Course Image">
-                </div>
-                <div class="course-details">
-                    <div class="course-title">
-                        {{ course_modules[i] }}
+            {% for module in course_modules.modules %}
+                <div class="course-card">
+                    <div class="course-image">
+                        <img src="{{ url_for('static', filename='img/' + module.image) }}" 
+                            alt="{{ module.name }} Image">
+                    </div>
+                    <div class="course-details">
+                        <div class="course-title">
+                            {{ module.name }}
+                        </div>
                     </div>
                 </div>
-            </div>
             {% endfor %}
+     
         </div>
     </div>
     <script>

@@ -1,17 +1,35 @@
-<!-- index.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Welcome</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAUI Homepage</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-    <div class="container"><h1>Welcome to the Adaptive Learning Platform</h1></div>
-    <div class="button-container">
-        <button onclick="location.href='/insights'">Insights</button>
-        <button onclick="location.href='/login?next=testin'">Test</button>
-        <button onclick="location.href='/login?next=prototype'">Try Out</button>
-        
+    <div class="container">
+        <h1>Welcome to MAUI</h1>
+        <p>Explore how our adaptive UI personalizes the learning experience with Machine Learning.</p>
+    
+        <div class="card-container">
+            <div class="card">
+                <h2>📊 Insights</h2>
+                <p>View the collected data, machine learning training, and statistical results.</p>
+                <button onclick="location.href='/insight'">View Insights</button>
+            </div>
+
+            <div class="card">
+                <h2>🧪 Test</h2>
+                <p>Experience the test phase, selecting UI elements and courses while alternating between the suggested UI and standard educational app interfaces.</p>
+                <button onclick="location.href='/login?next=testin'">Start Testing</button>
+            </div>
+
+            <div class="card">
+                <h2>🖥️ Try Out</h2>
+                <p>Play around with the prototype and explore the full platform.</p>
+                <button onclick="location.href='/login?next=prototype'">Try Prototype</button>
+            </div>
+        </div>
     </div>
 </body>
 </html>

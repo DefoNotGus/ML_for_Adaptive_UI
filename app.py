@@ -58,6 +58,8 @@ models = load_models(MODEL_FILES)
 
 @app.route('/')
 def index():
+    print(MODULES_FILE)  # Debugging
+    print(type(MODULES_FILE))
     return render_template('index.html', username=session.get('username'))
 
 @app.route('/prototype')
@@ -102,7 +104,7 @@ def testin():
 
 @app.route('/insight')
 def insight():
-    response = render_template("insight.html")
+    response = render_template("insights.html")
 
     # Prevent caching
     response = app.make_response(response)
