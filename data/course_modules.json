@@ -2,55 +2,154 @@
   "modules": [
     {
       "name": "Math Fundamentals",
-      "topics": ["Geometry", "Algebra", "Limits", "Calculus", "Probability", "Statistics", "Linear Algebra", "Trigonometry", "Number Theory", "Differential Equations"],
+      "topics": {
+        "Geometry": "Study of shapes, sizes, and positions of figures, including Pythagorean theorem and area calculations.",
+        "Algebra": "Manipulation of symbols and rules for solving equations and expressions.",
+        "Limits": "Understanding the behavior of functions as they approach specific values.",
+        "Calculus": "Study of rates of change and accumulation, including differentiation and integration.",
+        "Probability": "Analysis of random events and their likelihood.",
+        "Statistics": "Collection, analysis, interpretation, presentation, and organization of data.",
+        "Linear Algebra": "Study of vectors, matrices, and linear transformations.",
+        "Trigonometry": "Relationships between angles and sides of triangles.",
+        "Number Theory": "Properties and relationships of integers.",
+        "Differential Equations": "Equations involving functions and their derivatives."
+      },
       "assessments": ["Exam", "Report", "Presentation"],
       "image": "icon1.png"
     },
     {
       "name": "Programming Basics",
-      "topics": ["Syntax", "Variables", "Loops", "Functions", "Data Structures", "File Handling", "Object-Oriented Programming", "Error Handling", "Modules", "Algorithms"],
+      "topics": {
+        "Syntax": "Rules governing the structure of a programming language.",
+        "Variables": "Storage locations for data within a program.",
+        "Loops": "Repeating blocks of code until a condition is met.",
+        "Functions": "Reusable blocks of code that perform specific tasks.",
+        "Data Structures": "Ways of organizing and storing data, like arrays and lists.",
+        "File Handling": "Reading and writing data to files.",
+        "Object-Oriented Programming": "Programming paradigm based on objects and classes.",
+        "Error Handling": "Managing and responding to errors during program execution.",
+        "Modules": "Reusable code libraries.",
+        "Algorithms": "Step-by-step procedures for solving problems."
+      },
       "assessments": ["Group project", "Exam", "Report", "Presentation"],
       "image": "icon2.png"
     },
     {
       "name": "Geography",
-      "topics": ["Physical Geography", "Human Geography", "Cartography", "GIS", "Climate Change", "Environmental Studies", "Urban Geography", "Geopolitics", "Regional Geography", "Economic Geography"],
+      "topics": {
+        "Physical Geography": "Study of Earth's natural features and processes.",
+        "Human Geography": "Study of the distribution and interaction of humans and their activities on Earth.",
+        "Cartography": "The art and science of map making.",
+        "GIS": "Geographic Information Systems for analyzing spatial data.",
+        "Climate Change": "Long-term changes in temperature and weather patterns.",
+        "Environmental Studies": "Study of the interaction between humans and the environment.",
+        "Urban Geography": "Study of cities and their spatial patterns.",
+        "Geopolitics": "Study of the influence of geography on politics and international relations.",
+        "Regional Geography": "Study of specific regions of the world.",
+        "Economic Geography": "Study of the spatial distribution of economic activities."
+      },
       "assessments": ["Report", "Presentation"],
       "image": "icon3.png"
     },
     {
       "name": "Physics",
-      "topics": ["Mechanics", "Thermodynamics", "Electromagnetism", "Optics", "Quantum Mechanics", "Relativity", "Nuclear Physics", "Astrophysics", "Particle Physics", "Solid State Physics"],
+      "topics": {
+        "Mechanics": "Study of motion and forces.",
+        "Thermodynamics": "Study of heat and energy transfer.",
+        "Electromagnetism": "Study of electric and magnetic fields.",
+        "Optics": "Study of light and its properties.",
+        "Quantum Mechanics": "Study of the behavior of matter and energy at the atomic and subatomic level.",
+        "Relativity": "Study of space, time, and gravity.",
+        "Nuclear Physics": "Study of the atomic nucleus.",
+        "Astrophysics": "Study of celestial objects and phenomena.",
+        "Particle Physics": "Study of the fundamental particles of matter.",
+        "Solid State Physics": "Study of the physical properties of solid materials."
+      },
       "assessments": ["Exam", "Report", "Group project"],
       "image": "icon4.png"
     },
     {
       "name": "Biology",
-      "topics": ["Cell Biology", "Genetics", "Ecology", "Evolution", "Physiology", "Microbiology", "Botany", "Zoology", "Biochemistry", "Bioinformatics"],
+      "topics": {
+        "Cell Biology": "Study of cells and their functions.",
+        "Genetics": "Study of heredity and variation.",
+        "Ecology": "Study of the interactions between organisms and their environment.",
+        "Evolution": "Study of the process of change in living organisms over time.",
+        "Physiology": "Study of the functions of living organisms and their parts.",
+        "Microbiology": "Study of microorganisms.",
+        "Botany": "Study of plants.",
+        "Zoology": "Study of animals.",
+        "Biochemistry": "Study of the chemical processes in living organisms.",
+        "Bioinformatics": "Application of computer science to biological data."
+      },
       "assessments": ["Report", "Presentation", "Exam"],
       "image": "icon5.png"
     },
     {
       "name": "History",
-      "topics": ["Ancient History", "Medieval History", "Modern History", "World History", "Political History", "Social History", "Economic History", "Cultural History", "Historiography", "Archaeology"],
+      "topics": {
+        "Ancient History": "Study of early civilizations.",
+        "Medieval History": "Study of the Middle Ages.",
+        "Modern History": "Study of history from the Renaissance to the present.",
+        "World History": "Study of the history of the world as a whole.",
+        "Political History": "Study of political events and movements.",
+        "Social History": "Study of the lives and experiences of ordinary people.",
+        "Economic History": "Study of the development of economies.",
+        "Cultural History": "Study of the development of cultures.",
+        "Historiography": "Study of the methods and theories of historical writing.",
+        "Archaeology": "Study of past human societies through material remains."
+      },
       "assessments": ["Report", "Presentation", "Group project"],
       "image": "icon6.png"
     },
     {
       "name": "Linguistics",
-      "topics": ["Phonetics", "Phonology", "Morphology", "Syntax", "Semantics", "Pragmatics", "Sociolinguistics", "Historical Linguistics", "Psycholinguistics", "Computational Linguistics"],
+      "topics": {
+        "Phonetics": "Study of speech sounds.",
+        "Phonology": "Study of sound systems in languages.",
+        "Morphology": "Study of word formation.",
+        "Syntax": "Study of sentence structure.",
+        "Semantics": "Study of meaning in language.",
+        "Pragmatics": "Study of language use in context.",
+        "Sociolinguistics": "Study of the relationship between language and society.",
+        "Historical Linguistics": "Study of language change over time.",
+        "Psycholinguistics": "Study of the mental processes involved in language use.",
+        "Computational Linguistics": "Application of computer science to language processing."
+      },
       "assessments": ["Exam", "Report"],
       "image": "icon7.png"
     },
     {
       "name": "Philosophy",
-      "topics": ["Metaphysics", "Epistemology", "Ethics", "Logic", "Political Philosophy", "Aesthetics", "Philosophy of Science", "Philosophy of Mind", "Existentialism", "Phenomenology"],
+      "topics": {
+        "Metaphysics": "Study of the nature of reality.",
+        "Epistemology": "Study of knowledge and belief.",
+        "Ethics": "Study of morality and values.",
+        "Logic": "Study of valid reasoning.",
+        "Political Philosophy": "Study of government and justice.",
+        "Aesthetics": "Study of beauty and art.",
+        "Philosophy of Science": "Study of the methods and assumptions of science.",
+        "Philosophy of Mind": "Study of the nature of consciousness and mental states.",
+        "Existentialism": "Philosophy emphasizing individual existence and freedom.",
+        "Phenomenology": "Study of structures of consciousness and phenomena."
+      },
       "assessments": ["Report", "Presentation", "Exam", "Group project"],
       "image": "icon8.png"
     },
     {
       "name": "Economics",
-      "topics": ["Microeconomics", "Macroeconomics", "Econometrics", "International Economics", "Development Economics", "Public Economics", "Behavioral Economics", "Financial Economics", "Labor Economics", "Environmental Economics"],
+      "topics": {
+        "Microeconomics": "Study of individual economic agents and markets.",
+        "Macroeconomics": "Study of the economy as a whole.",
+        "Econometrics": "Application of statistical methods to economic data.",
+        "International Economics": "Study of trade and finance between nations.",
+        "Development Economics": "Study of economic growth in developing countries.",
+        "Public Economics": "Study of government spending and taxation.",
+        "Behavioral Economics": "Study of the psychological factors influencing economic decisions.",
+        "Financial Economics": "Study of financial markets and institutions.",
+        "Labor Economics": "Study of employment and wages.",
+        "Environmental Economics": "Study of the economic aspects of environmental issues."
+      },
       "assessments": ["Exam", "Report", "Group project"],
       "image": "icon9.png"
     }

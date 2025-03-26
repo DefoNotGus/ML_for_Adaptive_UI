@@ -1,4 +1,4 @@
-<!-- PROTOTYPE.HTML-->
+<!-- MODULE.HTML-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -157,221 +157,99 @@
             font-size: var(--text-size);
         }
     </style>
-</head>
-<body>
-    <header>
-        <div class="logo">MockOODLE</div>
-        <nav>
-            <ul>
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="#">Welcome</a></li>
-                <li><a href="#">Support</a></li>
-                <li><a href="#">Staff</a></li>
-            </ul>
-        </nav>
-        <div class="settings-button" onclick="toggleSidebar()">Settings</div>
-    </header>
-    
-    <div class="sidebar" id="sidebar">
-        <button onclick="toggleSidebar()" class="close-button">✖ Close</button>
-        <label>Font Size:</label>
-        <input type="range" id="fontSizeSlider" min="10" max="50" value="{{ text_size | default(16, true) }}">
-        
-        <label>Icon Size:</label>
-        <input type="range" id="iconSizeSlider" min="150" max="500" value="{{ image_size | default(250, true) }}">        
-    
-        <label>Body Color:</label>
-        <input type="color" id="bodyColorPicker">
-    
-        <label>Header Color:</label>
-        <input type="color" id="headerColorPicker">
-    
-        <label>Dark Mode:</label>
-        <input type="checkbox" id="darkModeToggle">
-        
-        <!-- Account Buttons-->
-        <button onclick="savePreferences()">Save</button>       
-        <a href="{{ url_for('logout') }}" onclick="forceReload()">Logout</a>
-        <div style="text-align: center;">
-            <img src="{{ url_for('static', filename='img/logo.png') }}" 
-                 style="width: 50px; height: 50px; cursor: pointer;" 
-                 onclick="recalculateUI()">
-        </div> 
-        <button onclick="changePassword()">Change Password</button>
-        <button onclick="deleteAccount()">Delete Account</button>
-        <p id="saveMessage" style="color: green; display: none;">Changes have been saved</p> 
-    </div>
-    
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        applyUserPreferences();
+    });
 
-    <div class="module-container">
-        <div class="course-sidebar">
-            <p>Topics</p>
-            <ul>
-                {% for topic in module.topics %}
-                <li>
-                    <button onclick="loadContent('Content for {{ topic }}')">{{ topic }}</button>
-                </li>
-                {% endfor %}
-            </ul>
-            <p>Assessments</p>
-            <ul>
-                {% for assessment in module.assessments %}
-                <li>
-                    <button onclick="loadContent('Details for {{ assessment }}')">{{ assessment }}</button>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-        <div class="content-area">
-            <div id="content-display" class="content-box">
-                <p>{{ module.name }} - Course Content</p>
-                <p>Select a topic or assessment to display content here.</p>
-                <button id="open-content-btn" class="open-content-btn" style="display: none;" onclick="openContent()">Open Content</button>
-            </div>
-        </div>
-    
-    <script>
-            // Load content dynamically
-        function loadContent(content) {
-        document.getElementById("selected-content").textContent = content;
-        document.getElementById("open-content-btn").style.display = "block"; // Show "Open Content" button
+    function applyUserPreferences() {
+        document.documentElement.style.setProperty('--text-size', '{{ text_size | default(16, true) }}px');
+        document.documentElement.style.setProperty('--image-size', '{{ image_size | default(100, true) }}px');
+        document.documentElement.style.setProperty('--body-bg', '{{ bgcolor | default("#f4f4f4", true) }}');
+        document.documentElement.style.setProperty('--header-bg', '{{ hcolor | default("purple", true) }}');
     }
 
-        // Display content when "Open Content" is clicked
-        function openContent() {
-            let content = document.getElementById("selected-content").textContent;
-            document.getElementById("content-display").innerHTML = `<h3>Content for: ${content}</h3><p>This is where the full content for the topic/assessment would be displayed.</p>`;
+    async function loadContent(topic) {
+        const contentDisplay = document.getElementById("content-display");
+        if (!contentDisplay) return console.error("Content display element not found!");
+        
+        const description = await getTopicDescription(topic);
+        contentDisplay.innerHTML = `<h3>${topic}</h3><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
+            voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, 
+            sunt in culpa qui officia deserunt mollit anim id est laborum</p>`;
+        document.getElementById("open-content-btn").style.display = "block";
+    }
+
+async function getTopicDescription(topic) {
+    const moduleName = new URLSearchParams(window.location.search).get("module");
+    if (!moduleName) return "Module not found.";
+
+    try {
+        const response = await fetch(`/module/${encodeURIComponent(moduleName)}`);
+        if (!response.ok) throw new Error("Failed to fetch module data.");
+        const moduleData = await response.json();
+        if (moduleData.error){
+            return "Module not found."
         }
-        function toggleSidebar() {
-            let sidebar = document.getElementById('sidebar');
-            sidebar.style.right = sidebar.style.right === '0px' ? '-350px' : '0px';
-        }
-    
-        document.getElementById('fontSizeSlider').addEventListener('input', function() {
-            document.documentElement.style.setProperty('--text-size', this.value + 'px');
-        });
-    
-        document.getElementById('iconSizeSlider').addEventListener('input', function() {
-            document.documentElement.style.setProperty('--image-size', this.value + 'px');
-        });
-    
-        document.getElementById('bodyColorPicker').addEventListener('input', function() {
-            document.documentElement.style.setProperty('--body-bg', this.value);
-        });
-    
-        document.getElementById('headerColorPicker').addEventListener('input', function() {
-            document.documentElement.style.setProperty('--header-bg', this.value);
-        });
-    
-        document.getElementById('darkModeToggle').addEventListener('change', function() {
-            if (this.checked) {
-                document.documentElement.style.setProperty("--body-bg", "#121212");
-                document.documentElement.style.setProperty("--text-color", "#fff");
-                document.documentElement.style.setProperty("--header-bg", "#1e1e1e");
-                document.documentElement.style.setProperty("--card-bg", "#333");
-    
-                // Update color pickers to match dark mode colors
-                document.getElementById("bodyColorPicker").value = "#121212";
-                document.getElementById("headerColorPicker").value = "#1e1e1e";
-    
-            } else {
-                document.documentElement.style.setProperty("--body-bg", "#f4f4f4");
-                document.documentElement.style.setProperty("--text-color", "#000");
-                document.documentElement.style.setProperty("--header-bg", "#800080");
-                document.documentElement.style.setProperty("--card-bg", "#ffffff");
-    
-                // Reset color pickers to light mode defaults
-                document.getElementById("bodyColorPicker").value = "#f4f4f4";
-                document.getElementById("headerColorPicker").value = "#800080";
-            }
-        });
-    
-        document.addEventListener("DOMContentLoaded", function() {
-            document.documentElement.style.setProperty('--text-size', document.getElementById('fontSizeSlider').value + 'px');
-            document.documentElement.style.setProperty('--image-size', document.getElementById('iconSizeSlider').value + 'px');
-            let bodyColor = "{{ bgcolor | default('#f4f4f4', true) }}";
-            let headerColor = "{{ hcolor | default('purple', true) }}";
-    
-            document.documentElement.style.setProperty('--body-bg', bodyColor);
-            document.documentElement.style.setProperty('--header-bg', headerColor);
-    
-            document.getElementById("bodyColorPicker").value = bodyColor;
-            document.getElementById("headerColorPicker").value = headerColor;
-        });
-    
-        function savePreferences() {
-            const data = {
-                text_size: document.getElementById("fontSizeSlider").value,
-                image_size: document.getElementById("iconSizeSlider").value,
-                bgcolor: document.getElementById("bodyColorPicker").value,
-                hcolor: document.getElementById("headerColorPicker").value
-            };
-    
-            console.log("Sending Data:", data);  
-    
-            fetch("/save_preferences", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(result => {
-                console.log("Server Response:", result);  
-                document.getElementById("saveMessage").style.display = "block";
-                setTimeout(() => {
-                    document.getElementById("saveMessage").style.display = "none";
-                }, 2000);
-            });
-        }
-    
-        function recalculateUI() {
-            fetch("/recalculate_ui", { method: "POST" })
-            .then(response => response.json())
-            .then(data => {
-                document.documentElement.style.setProperty("--text-size", data.text_size + "px");
-                document.documentElement.style.setProperty("--image-size", data.image_size + "px");
-    
-                // Update sliders to reflect new values
-                document.getElementById("fontSizeSlider").value = data.text_size;
-                document.getElementById("iconSizeSlider").value = data.image_size;
-    
-                alert("User preferences updated using ML model!");
-            });
-        }
-    
-        function changePassword() {
-            let newPassword = prompt("Enter your new password:");
-            if (newPassword) {
-                fetch("/change_password", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ new_password: newPassword })
-                })
-                .then(response => response.json())
-                .then(data => alert(data.message));
-            }
-        }
-    
-        function deleteAccount() {
-            if (confirm("Are you sure you want to delete your account? This cannot be undone!")) {
-                fetch("/delete_account", { method: "POST" })
-                .then(response => response.json())
-                .then(data => {
-                    alert(data.message);
-                    window.location.href = "/";  
-                });
-            }
-        }
-        function forceReload() {
-            setTimeout(() => {
-                window.location.href = "{{ url_for('login') }}";
-                window.location.reload(true);  // Forces reload without cache
-            }, 100);
-        }
-    </script>       
+        return moduleData.topics[topic] || "Description not available.";
+    } catch (error) {
+        console.error("Error fetching module data:", error);
+        return "Description not available.";
+    }
+}
+function openContent() {
+        window.location.href = "/prototype";
+    }
+</script>
+</head>
+<body>
+<header>
+    <div class="logo">MockOODLE</div>
+    <nav>
+        <ul>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Welcome</a></li>
+            <li><a href="#">Support</a></li>
+            <li><a href="#">Staff</a></li>
+        </ul>
+    </nav>
+    <div class="settings-button" onclick="document.getElementById('sidebar').style.right = '0px'">Settings</div>
+</header>
+
+<div class="sidebar" id="sidebar">
+    <button onclick="document.getElementById('sidebar').style.right = '-350px'">✖ Close</button>
+    <label>Font Size:</label>
+    <input type="range" id="fontSizeSlider" min="10" max="50" value="{{ text_size | default(16, true) }}">
+    <label>Icon Size:</label>
+    <input type="range" id="iconSizeSlider" min="150" max="500" value="{{ image_size | default(250, true) }}">        
+    <label>Body Color:</label>
+    <input type="color" id="bodyColorPicker">
+    <label>Header Color:</label>
+    <input type="color" id="headerColorPicker">
+    <label>Dark Mode:</label>
+    <input type="checkbox" id="darkModeToggle">
+    <button onclick="savePreferences()">Save</button>       
+    <a href="{{ url_for('logout') }}">Logout</a>
+</div>
+
+<div class="module-container">
+    <div class="course-sidebar">
+        <p>Topics</p>
+        <ul>
+            {% for topic in module.topics %}
+            <li><button onclick="loadContent('{{ topic }}')">{{ topic }}</button></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="content-area">
+        <div id="content-display" class="content-box">
+            <p>Select a topic to display content here.</p>
+        </div>
+        <button id="open-content-btn" style="display: none;" onclick="openContent()">Open Content</button>
+        <p id="message"></p>
+    </div>
+</div>
 </body>
 </html>
-
-<!--
-    
--->

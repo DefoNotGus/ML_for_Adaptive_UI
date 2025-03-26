@@ -93,16 +93,13 @@ def module_page(module_name):
     username = session.get("username", "guest")
     user_data = users.get(username, {"text_size": 16, "image_size": 100, "bgcolor": "#fff", "hcolor": "#7A287E"})
 
-    modules_data = load_data(MODULES_FILE, {}).get("modules", [])
+    modules_data = load_data(MODULES_FILE, {}).get("modules", [])  
 
     # Decode and normalize the module_name from the URL
     decoded_module_name = unquote(module_name).strip().lower()
 
     # Find the matching module
-    selected_module = next(
-        (module for module in modules_data if module["name"].strip().lower() == decoded_module_name),
-        None
-    )
+    selected_module = next((module for module in modules_data if module["name"].strip().lower() == decoded_module_name),None)
 
     if not selected_module:
         return "Module not found", 404
@@ -116,6 +113,7 @@ def module_page(module_name):
     response.headers["Expires"] = "0"
 
     return response
+
 
 @app.route('/insight')
 def insight():
