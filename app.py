@@ -10,11 +10,11 @@ app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
 # --- Constants ---
-USER_DATA_FILE = "users.json"
-MODULES_FILE = "course_modules.json"
+USER_DATA_FILE = "data/users.json"
+MODULES_FILE = "data/course_modules.json"
 MODEL_FILES = {
-    'text_size': 'rf_text_size.pkl',
-    'image_size': 'rf_image_size.pkl'
+    'text_size': 'models/rf_text_size.pkl',
+    'image_size': 'models/rf_image_size.pkl'
 }
 
 # --- Helper Functions ---
@@ -75,26 +75,6 @@ def home():
 
     response = render_template("prototype.html", course_modules=courses, **user_data)
     
-    # Prevent caching
-    response = app.make_response(response)
-    response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
-    response.headers["Pragma"] = "no-cache"
-    response.headers["Expires"] = "0"
-
-    return response
-
-@app.route('/testin')
-def testin():
-    if "username" not in session:
-        return redirect(url_for("login"))
-
-    users = load_data(USER_DATA_FILE, {})
-    username = session.get("username", "guest")
-    user_data = users.get(username, {"text_size": 16, "image_size": 100, "bgcolor": "#fff", "hcolor": "#7A287E"})
-    courses = load_data(MODULES_FILE, [])
-
-    response = render_template("testin.html", course_modules=courses, **user_data)
-
     # Prevent caching
     response = app.make_response(response)
     response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"

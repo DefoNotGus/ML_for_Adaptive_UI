@@ -78,12 +78,12 @@ button:hover, input[type="submit"]:hover {
 
 .card-container {
     display: flex;
-    flex-direction: column; /* Stack cards vertically */
-    align-items: center; /* Center cards horizontally */
+    flex-direction: row; /* Arrange cards horizontally */
+    justify-content: center; /* Center cards horizontally */
+    align-items: center; /* Center cards vertically if needed */
     gap: 20px; /* Space between cards */
     margin-top: 50px;
 }
-
 .card {
     background: white;
     padding: 30px; /* Increased padding */

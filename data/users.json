@@ -8,8 +8,8 @@
         "current_device": "2",
         "bgcolor": "#332e2e",
         "hcolor": "#835d8e",
-        "text_size": "48",
-        "image_size": "445"
+        "text_size": "50",
+        "image_size": "500"
     },
     "c": {
         "password": "51c97588752d6e6ca40606eed9bdf013$e770d6e833c442c066b9b70852077790c062d83b9b1f8805acb6836b3d8a718a",
@@ -34,5 +34,17 @@
         "hcolor": "#7c3d9e",
         "text_size": "29",
         "image_size": "288"
+    },
+    "e": {
+        "password": "1047e76949b358995e4c863237c35011$84e4f4344f93c4667876ae77ced9a8b3fa3ab32fd7df8c3dabb3fd9afd49dc64",
+        "age": "55",
+        "digital_challenges": "2",
+        "application_challenges": "3",
+        "education_level": "4",
+        "current_device": "1",
+        "bgcolor": "#f4f4f4",
+        "hcolor": "#800080",
+        "text_size": 29.445404761904754,
+        "image_size": 430.4658333333333
     }
 }

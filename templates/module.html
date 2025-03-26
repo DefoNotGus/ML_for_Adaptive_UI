@@ -1,126 +1,162 @@
+<!-- PROTOTYPE.HTML-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ module.name }}</title>
+    <title>Moodle Mockup - Prediction Results</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/prototype.css') }}">
     <style>
-        :root {
+        :root { 
             --image-size: {{ image_size | default(100, true) }}px;
+            --min-card-size: calc(var(--image-size) + 50px);
             --text-size: {{ text_size | default(16, true) }}px;
             --body-bg: {{ bgcolor | default('#f4f4f4', true) }};
             --header-bg: {{ hcolor | default('purple', true) }};
-            --text-color: black;
-            --sidebar-bg: rgba(244, 244, 244, 0.8);
-            --card-bg: white;
+            
+            /* Automatically set text color based on body background */
+            --text-color: color-contrast(var(--body-bg) vs black, #ffffff);
+    
+            /* Generate a card background slightly darker or lighter than body */
+            --card-bg: color-mix(in srgb, var(--body-bg) 10%, rgb(225, 225, 218));
         }
-
+    
         body {
             background-color: var(--body-bg);
             color: var(--text-color);
-            font-size: var(--text-size);
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
         }
-
+    
         header {
-            background: var(--header-bg);
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: calc(var(--text-size) * 0.75) 20px;
-            font-size: calc(var(--text-size) * 1.2);
+            background-color: var(--header-bg);
+            transition: background-color 0.3s ease-in-out;
         }
-
-        .logo {
-            font-weight: bold;
-            font-size: calc(var(--text-size) * 1.5);
+        
+        .course-card {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
         }
-
-        nav {
-            margin-left: auto;
-        }
-
-        nav ul {
-            list-style: none;
-            padding: 0;
-            display: flex;
-            gap: calc(var(--text-size) * 1);
-        }
-
-        nav ul li {
-            margin: 0;
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
+        
+        .logo, nav a, .course-title {
             font-size: var(--text-size);
         }
-
+    
+        .course-image img {
+            width: var(--image-size);
+            height: var(--image-size);
+        }
+        
+        .settings-button {
+            cursor: pointer;
+            padding: 10px 15px;
+            background: #555;
+            color: white;
+            border-radius: 5px;
+        }
+        
+        .sidebar {
+            position: fixed;
+            right: -350px; /* Hidden by default */
+            top: 0;
+            width: 250px;
+            height: 100%;
+            background: #222;
+            color: white;
+            padding: 20px;
+            transition: right 0.3s;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .sidebar input {
+            width: 100%;
+        }
+        
+        .sidebar-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+        
         .module-container {
             display: flex;
-            height: 100vh;
+            width: 100%;
+            margin-top: 20px;
+            padding: 20px;
+            box-sizing: border-box;
         }
-
-        .sidebar {
-            width: 20%;
-            background: var(--sidebar-bg);
-            padding: calc(var(--text-size) * 0.8);
-            border-right: 2px solid #ddd;
+    
+        .course-sidebar {
+            width: 400px; /* Increased sidebar width */
+            min-width: 250px; /* Increased min-width */
+            background-color: #f0f0f0;
+            padding: 15px;
+            box-sizing: border-box;
+            border-right: 1px solid #ddd;
+            display: flex;
+            flex-direction: column;
             overflow-y: auto;
             font-size: var(--text-size);
+            white-space: normal;
         }
-
-        .sidebar h2 {
-            margin-bottom: calc(var(--text-size) * 0.5);
+    
+        .course-sidebar p {
+            font-weight: bold;
+            margin-bottom: 10px;
         }
-
-        .sidebar ul {
-            list-style: none;
+    
+        .course-sidebar ul {
+            list-style-type: none;
             padding: 0;
+            margin: 0;
         }
-
-        .sidebar ul li {
-            margin-bottom: calc(var(--text-size) * 0.5);
+    
+        .course-sidebar li {
+            margin-bottom: 5px;
         }
-
-        .sidebar ul li button {
-            color: black;
-            border: none;
-            padding: calc(var(--text-size) * 0.5);
-            cursor: pointer;
-            font-size: var(--text-size);
+    
+        .course-sidebar button {
             width: 100%;
+            padding: 8px 12px;
             text-align: left;
-            background: transparent;
+            background-color: #e0e0e0;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            white-space: normal;
+            font-size: calc(var(--text-size) * 0.9);
         }
-
-        .sidebar ul li button:hover {
-            background: #e0e0e0;
+    
+        .course-sidebar button:hover {
+            background-color: #d0d0d0;
         }
-
+    
         .content-area {
-            flex: 1;
-            padding: calc(var(--text-size) * 1.2);
-            font-size: var(--text-size);
+            flex-grow: 1;
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: color-mix(in srgb, var(--body-bg) 10%, rgb(225, 225, 218));
         }
-
-        .content-box {
-            border: 2px solid var(--header-bg);
-            padding: calc(var(--text-size) * 0.8);
-            background: var(--card-bg);
+    
+        .content-display {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             min-height: 200px;
         }
-    </style>
-    <script>
-        function loadContent(content) {
-            document.getElementById("content-display").innerHTML = `<p>${content}</p>`;
+    
+        .content-box {
+            line-height: 1.6;
+            font-size: var(--text-size);
         }
-    </script>
+    </style>
 </head>
 <body>
     <header>
@@ -133,10 +169,43 @@
                 <li><a href="#">Staff</a></li>
             </ul>
         </nav>
+        <div class="settings-button" onclick="toggleSidebar()">Settings</div>
     </header>
+    
+    <div class="sidebar" id="sidebar">
+        <button onclick="toggleSidebar()" class="close-button">✖ Close</button>
+        <label>Font Size:</label>
+        <input type="range" id="fontSizeSlider" min="10" max="50" value="{{ text_size | default(16, true) }}">
+        
+        <label>Icon Size:</label>
+        <input type="range" id="iconSizeSlider" min="150" max="500" value="{{ image_size | default(250, true) }}">        
+    
+        <label>Body Color:</label>
+        <input type="color" id="bodyColorPicker">
+    
+        <label>Header Color:</label>
+        <input type="color" id="headerColorPicker">
+    
+        <label>Dark Mode:</label>
+        <input type="checkbox" id="darkModeToggle">
+        
+        <!-- Account Buttons-->
+        <button onclick="savePreferences()">Save</button>       
+        <a href="{{ url_for('logout') }}" onclick="forceReload()">Logout</a>
+        <div style="text-align: center;">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" 
+                 style="width: 50px; height: 50px; cursor: pointer;" 
+                 onclick="recalculateUI()">
+        </div> 
+        <button onclick="changePassword()">Change Password</button>
+        <button onclick="deleteAccount()">Delete Account</button>
+        <p id="saveMessage" style="color: green; display: none;">Changes have been saved</p> 
+    </div>
+    
+
     <div class="module-container">
-        <div class="sidebar">
-            <h2>Topics</h2>
+        <div class="course-sidebar">
+            <p>Topics</p>
             <ul>
                 {% for topic in module.topics %}
                 <li>
@@ -144,8 +213,7 @@
                 </li>
                 {% endfor %}
             </ul>
-
-            <h2>Assessments</h2>
+            <p>Assessments</p>
             <ul>
                 {% for assessment in module.assessments %}
                 <li>
@@ -156,11 +224,154 @@
         </div>
         <div class="content-area">
             <div id="content-display" class="content-box">
-                <h2>{{ module.name }} - Course Content</h2>
-            
+                <p>{{ module.name }} - Course Content</p>
                 <p>Select a topic or assessment to display content here.</p>
+                <button id="open-content-btn" class="open-content-btn" style="display: none;" onclick="openContent()">Open Content</button>
             </div>
         </div>
-    </div>
+    
+    <script>
+            // Load content dynamically
+        function loadContent(content) {
+        document.getElementById("selected-content").textContent = content;
+        document.getElementById("open-content-btn").style.display = "block"; // Show "Open Content" button
+    }
+
+        // Display content when "Open Content" is clicked
+        function openContent() {
+            let content = document.getElementById("selected-content").textContent;
+            document.getElementById("content-display").innerHTML = `<h3>Content for: ${content}</h3><p>This is where the full content for the topic/assessment would be displayed.</p>`;
+        }
+        function toggleSidebar() {
+            let sidebar = document.getElementById('sidebar');
+            sidebar.style.right = sidebar.style.right === '0px' ? '-350px' : '0px';
+        }
+    
+        document.getElementById('fontSizeSlider').addEventListener('input', function() {
+            document.documentElement.style.setProperty('--text-size', this.value + 'px');
+        });
+    
+        document.getElementById('iconSizeSlider').addEventListener('input', function() {
+            document.documentElement.style.setProperty('--image-size', this.value + 'px');
+        });
+    
+        document.getElementById('bodyColorPicker').addEventListener('input', function() {
+            document.documentElement.style.setProperty('--body-bg', this.value);
+        });
+    
+        document.getElementById('headerColorPicker').addEventListener('input', function() {
+            document.documentElement.style.setProperty('--header-bg', this.value);
+        });
+    
+        document.getElementById('darkModeToggle').addEventListener('change', function() {
+            if (this.checked) {
+                document.documentElement.style.setProperty("--body-bg", "#121212");
+                document.documentElement.style.setProperty("--text-color", "#fff");
+                document.documentElement.style.setProperty("--header-bg", "#1e1e1e");
+                document.documentElement.style.setProperty("--card-bg", "#333");
+    
+                // Update color pickers to match dark mode colors
+                document.getElementById("bodyColorPicker").value = "#121212";
+                document.getElementById("headerColorPicker").value = "#1e1e1e";
+    
+            } else {
+                document.documentElement.style.setProperty("--body-bg", "#f4f4f4");
+                document.documentElement.style.setProperty("--text-color", "#000");
+                document.documentElement.style.setProperty("--header-bg", "#800080");
+                document.documentElement.style.setProperty("--card-bg", "#ffffff");
+    
+                // Reset color pickers to light mode defaults
+                document.getElementById("bodyColorPicker").value = "#f4f4f4";
+                document.getElementById("headerColorPicker").value = "#800080";
+            }
+        });
+    
+        document.addEventListener("DOMContentLoaded", function() {
+            document.documentElement.style.setProperty('--text-size', document.getElementById('fontSizeSlider').value + 'px');
+            document.documentElement.style.setProperty('--image-size', document.getElementById('iconSizeSlider').value + 'px');
+            let bodyColor = "{{ bgcolor | default('#f4f4f4', true) }}";
+            let headerColor = "{{ hcolor | default('purple', true) }}";
+    
+            document.documentElement.style.setProperty('--body-bg', bodyColor);
+            document.documentElement.style.setProperty('--header-bg', headerColor);
+    
+            document.getElementById("bodyColorPicker").value = bodyColor;
+            document.getElementById("headerColorPicker").value = headerColor;
+        });
+    
+        function savePreferences() {
+            const data = {
+                text_size: document.getElementById("fontSizeSlider").value,
+                image_size: document.getElementById("iconSizeSlider").value,
+                bgcolor: document.getElementById("bodyColorPicker").value,
+                hcolor: document.getElementById("headerColorPicker").value
+            };
+    
+            console.log("Sending Data:", data);  
+    
+            fetch("/save_preferences", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log("Server Response:", result);  
+                document.getElementById("saveMessage").style.display = "block";
+                setTimeout(() => {
+                    document.getElementById("saveMessage").style.display = "none";
+                }, 2000);
+            });
+        }
+    
+        function recalculateUI() {
+            fetch("/recalculate_ui", { method: "POST" })
+            .then(response => response.json())
+            .then(data => {
+                document.documentElement.style.setProperty("--text-size", data.text_size + "px");
+                document.documentElement.style.setProperty("--image-size", data.image_size + "px");
+    
+                // Update sliders to reflect new values
+                document.getElementById("fontSizeSlider").value = data.text_size;
+                document.getElementById("iconSizeSlider").value = data.image_size;
+    
+                alert("User preferences updated using ML model!");
+            });
+        }
+    
+        function changePassword() {
+            let newPassword = prompt("Enter your new password:");
+            if (newPassword) {
+                fetch("/change_password", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ new_password: newPassword })
+                })
+                .then(response => response.json())
+                .then(data => alert(data.message));
+            }
+        }
+    
+        function deleteAccount() {
+            if (confirm("Are you sure you want to delete your account? This cannot be undone!")) {
+                fetch("/delete_account", { method: "POST" })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    window.location.href = "/";  
+                });
+            }
+        }
+        function forceReload() {
+            setTimeout(() => {
+                window.location.href = "{{ url_for('login') }}";
+                window.location.reload(true);  // Forces reload without cache
+            }, 100);
+        }
+    </script>       
 </body>
 </html>
+
+<!--
+    
+-->
