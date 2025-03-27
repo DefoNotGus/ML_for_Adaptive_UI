@@ -224,22 +224,36 @@
                 }, 2000);
             });
         }
-    
-        function recalculateUI() {
-            fetch("/recalculate_ui", { method: "POST" })
-            .then(response => response.json())
-            .then(data => {
-                document.documentElement.style.setProperty("--text-size", data.text_size + "px");
-                document.documentElement.style.setProperty("--image-size", data.image_size + "px");
-    
-                // Update sliders to reflect new values
-                document.getElementById("fontSizeSlider").value = data.text_size;
-                document.getElementById("iconSizeSlider").value = data.image_size;
-    
-                alert("User preferences updated using ML model!");
-            });
-        }
-    
+        
+        // Recalculate UI using ML model TOGGLE
+        let originalSettings = { text_size: "16px", image_size: "200px" };
+        let isMLSettingsApplied = false;
+
+            function recalculateUI() {
+                if (!isMLSettingsApplied) {
+                    fetch("/recalculate_ui", { method: "POST" })
+                    .then(response => response.json())
+                    .then(data => {
+                        document.documentElement.style.setProperty("--text-size", data.text_size + "px");
+                        document.documentElement.style.setProperty("--image-size", data.image_size + "px");
+
+                        document.getElementById("saveMessage").innerText = "Applied ML-predicted UI settings.";
+                        document.getElementById("saveMessage").style.display = "block";
+                        setTimeout(() => document.getElementById("saveMessage").style.display = "none", 2000);
+
+                        isMLSettingsApplied = true;
+                    });
+                } else {
+                    document.documentElement.style.setProperty("--text-size", originalSettings.text_size);
+                    document.documentElement.style.setProperty("--image-size", originalSettings.image_size);
+                    document.getElementById("saveMessage").innerText = "Reverted to default UI settings.";
+                    document.getElementById("saveMessage").style.display = "block";
+                    setTimeout(() => document.getElementById("saveMessage").style.display = "none", 2000);
+
+                    isMLSettingsApplied = false;
+                }
+            }
+            
         function changePassword() {
             let newPassword = prompt("Enter your new password:");
             if (newPassword) {
