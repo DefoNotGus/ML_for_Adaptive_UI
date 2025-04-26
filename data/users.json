@@ -8,8 +8,8 @@
         "current_device": "1",
         "bgcolor": "#ebebeb",
         "hcolor": "#800080",
-        "text_size": 24,
-        "image_size": 301
+        "text_size": 16,
+        "image_size": 200
     },
     "Jemz": {
         "password": "21c0873bdac253cc7f08d825a75411a0$43454eb8472d3eb9880fec5cac9e06c3e526231c7f3cd7593a86022098f91c3a",
@@ -22,5 +22,17 @@
         "hcolor": "#800080",
         "text_size": "26",
         "image_size": "301"
+    },
+    "Vladimir": {
+        "password": "3722f07ddb566b256201ec6542cc6c05$91fa0507143a6d07bae7e760367bd4e5458deb8bc04427f6296fe05fe68014d8",
+        "age": "66",
+        "digital_challenges": "2",
+        "application_challenges": "1",
+        "education_level": "4",
+        "current_device": "1",
+        "bgcolor": "#f4f4f4",
+        "hcolor": "#800080",
+        "text_size": 16,
+        "image_size": 200
     }
 }
