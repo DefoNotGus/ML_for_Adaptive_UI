@@ -92,7 +92,20 @@
         </nav>
         <div class="settings-button" onclick="toggleSidebar()">Settings</div>
     </header>
+
+    <!-- Countdown Overlay -->
+    <div id="countdownOverlay" style="display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); color:white; font-size: 4em; align-items:center; justify-content:center; flex-direction: column; z-index:9999;">
+        <div id="countdownNumber">3</div>
+        <div id="taskInstruction" style="margin-top: 20px; font-size: 0.5em; display: none;"></div>
+        <button id="closeOverlayButton" style="display:none; margin-top: 20px; padding: 10px 20px; font-size: 0.5em; cursor: pointer;">I'm Ready!</button>
+    </div>
+
     
+
+
+    <button id="startTestButton" onclick="startTest()">Start Test</button>
+
+
     <div class="sidebar" id="sidebar">
         <button onclick="toggleSidebar()" class="close-button">✖ Close</button>
         <label>Font Size:</label>
@@ -142,6 +155,12 @@
         </div>
     </div>
     
+
+
+    <script id="modules-data" type="application/json">
+    {{ course_modules | tojson }}
+    </script>
+
     <script>
         function toggleSidebar() {
             let sidebar = document.getElementById('sidebar');
@@ -225,34 +244,109 @@
             });
         }
         
-        // Recalculate UI using ML model TOGGLE
-        let originalSettings = { text_size: "16px", image_size: "200px" };
-        let isMLSettingsApplied = false;
+        function recalculateUI() {
+        // Step 1: Get current values
+        const currentTextSize = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--text-size'));
+        const currentImageSize = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--image-size'));
+        const currentBodyColor = getComputedStyle(document.documentElement).getPropertyValue('--body-bg').trim();
+        const currentHeaderColor = getComputedStyle(document.documentElement).getPropertyValue('--header-bg').trim();
 
-            function recalculateUI() {
-                if (!isMLSettingsApplied) {
-                    fetch("/recalculate_ui", { method: "POST" })
-                    .then(response => response.json())
-                    .then(data => {
-                        document.documentElement.style.setProperty("--text-size", data.text_size + "px");
-                        document.documentElement.style.setProperty("--image-size", data.image_size + "px");
+        // Step 2: Define default values
+        const defaultTextSize = 16;
+        const defaultImageSize = 200;
 
-                        document.getElementById("saveMessage").innerText = "Applied ML-predicted UI settings.";
-                        document.getElementById("saveMessage").style.display = "block";
-                        setTimeout(() => document.getElementById("saveMessage").style.display = "none", 2000);
-
-                        isMLSettingsApplied = true;
-                    });
-                } else {
-                    document.documentElement.style.setProperty("--text-size", originalSettings.text_size);
-                    document.documentElement.style.setProperty("--image-size", originalSettings.image_size);
-                    document.getElementById("saveMessage").innerText = "Reverted to default UI settings.";
-                    document.getElementById("saveMessage").style.display = "block";
-                    setTimeout(() => document.getElementById("saveMessage").style.display = "none", 2000);
-
-                    isMLSettingsApplied = false;
-                }
+        // Step 3: Compare
+        if (currentTextSize === defaultTextSize && currentImageSize === defaultImageSize) {
+        // Step 4: First get the real user's data
+        fetch("/get_user_data")
+        .then(response => response.json())
+        .then(userData => {
+            if (userData.error) {
+                showSaveMessage("❌ Cannot fetch user data for prediction.");
+                throw new Error(userData.error);
             }
+
+            // Now POST real user data to /predict
+            return fetch("/predict", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(userData)
+            });
+        })
+        .then(response => response.json())
+        .then(prediction => {
+            if (prediction.error) {
+                showSaveMessage("❌ Prediction failed: " + prediction.error);
+                throw new Error(prediction.error);
+            }
+
+            const newTextSize = Math.round(prediction.predicted_text_size);
+            const newImageSize = Math.round(prediction.predicted_image_size);
+
+            // Apply new sizes
+            document.documentElement.style.setProperty('--text-size', newTextSize + "px");
+            document.documentElement.style.setProperty('--image-size', newImageSize + "px");
+
+            // Update sidebar sliders
+            document.getElementById('fontSizeSlider').value = newTextSize;
+            document.getElementById('iconSizeSlider').value = newImageSize;
+
+            // Step 5: Save new preferences
+            return fetch("/save_preferences", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    text_size: newTextSize,
+                    image_size: newImageSize,
+                    bgcolor: currentBodyColor,
+                    hcolor: currentHeaderColor
+                })
+            });
+        })
+        .then(response => response.json())
+        .then(result => {
+            showSaveMessage(`✅ Changed to ML settings based on your profile!`);
+        })
+        .catch(error => {
+            console.error("Error during prediction flow:", error);
+            showSaveMessage("❌ Failed to calculate personalized prediction.");
+        });
+        } else {
+            // Step 6: Revert back to default values
+            document.documentElement.style.setProperty('--text-size', defaultTextSize + "px");
+            document.documentElement.style.setProperty('--image-size', defaultImageSize + "px");
+
+            // Update sidebar sliders
+            document.getElementById('fontSizeSlider').value = defaultTextSize;
+            document.getElementById('iconSizeSlider').value = defaultImageSize;
+
+            // Save reverted preferences
+            fetch("/save_preferences", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    text_size: defaultTextSize,
+                    image_size: defaultImageSize,
+                    bgcolor: currentBodyColor,
+                    hcolor: currentHeaderColor
+                })
+            })
+            .then(response => response.json())
+            .then(result => {
+                showSaveMessage(`🔁 Reverted to default: Font ${currentTextSize}px ➔ ${defaultTextSize}px, Image ${currentImageSize}px ➔ ${defaultImageSize}px`);
+            });
+        }
+    }
+
+    function showSaveMessage(message) {
+        const saveMessage = document.getElementById("saveMessage");
+        saveMessage.innerText = message;
+        saveMessage.style.display = "block";
+        setTimeout(() => {
+            saveMessage.style.display = "none";
+        }, 3000);
+    }
+
             
         function changePassword() {
             let newPassword = prompt("Enter your new password:");
@@ -283,6 +377,61 @@
                 window.location.reload(true);  // Forces reload without cache
             }, 100);
         }
+
+        // Start Test function
+        function startTest() {
+        const overlay = document.getElementById('countdownOverlay');
+        const countdownNumber = document.getElementById('countdownNumber');
+        const taskInstruction = document.getElementById('taskInstruction');
+        const closeButton = document.getElementById('closeOverlayButton');
+
+        const courseModules = JSON.parse(document.getElementById('modules-data').textContent).modules;
+        const randomModule = courseModules[Math.floor(Math.random() * courseModules.length)];
+
+        let randomTopic = "Unknown Topic"; 
+        if (randomModule.topics && Object.keys(randomModule.topics).length > 0) {
+            const topicKeys = Object.keys(randomModule.topics);
+            randomTopic = topicKeys[Math.floor(Math.random() * topicKeys.length)];
+        }
+
+        console.log("Selected module:", randomModule.name);
+        console.log("Selected topic:", randomTopic);
+
+        sessionStorage.setItem('target_module', randomModule.name);
+        sessionStorage.setItem('target_topic', randomTopic);
+        // ✅ DO NOT set start_time here anymore
+
+        overlay.style.display = "flex"; 
+        countdownNumber.style.display = "block";
+        taskInstruction.style.display = "none";
+        closeButton.style.display = "none";
+
+        let countdown = 3;
+        countdownNumber.innerText = countdown;
+
+        const interval = setInterval(() => {
+            countdown--;
+            if (countdown > 0) {
+                countdownNumber.innerText = countdown;
+            } else if (countdown === 0) {
+                countdownNumber.innerText = "GO!";
+            } else {
+                clearInterval(interval);
+
+                countdownNumber.style.display = "none";
+                taskInstruction.style.display = "block";
+                closeButton.style.display = "inline-block";
+                taskInstruction.innerHTML = `🕵️ Find:<br><strong>Module:</strong> ${randomModule.name}<br><strong>Topic:</strong> ${randomTopic}`;
+            }
+        }, 1000);
+
+        closeButton.onclick = function() {
+            overlay.style.display = "none"; 
+            // ✅ Start the timer when user says "I'm ready"
+            sessionStorage.setItem('start_time', Date.now());
+        };
+    }
+
     </script>       
 </body>
 </html>

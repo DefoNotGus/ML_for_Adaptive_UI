@@ -6,9 +6,21 @@
         "application_challenges": "0",
         "education_level": "1",
         "current_device": "1",
+        "bgcolor": "#ebebeb",
+        "hcolor": "#800080",
+        "text_size": 24,
+        "image_size": 301
+    },
+    "Jemz": {
+        "password": "21c0873bdac253cc7f08d825a75411a0$43454eb8472d3eb9880fec5cac9e06c3e526231c7f3cd7593a86022098f91c3a",
+        "age": "28",
+        "digital_challenges": "0",
+        "application_challenges": "0",
+        "education_level": "6",
+        "current_device": "1",
         "bgcolor": "#f4f4f4",
         "hcolor": "#800080",
-        "text_size": 24.013880952380944,
-        "image_size": 300.9803571428571
+        "text_size": "26",
+        "image_size": "301"
     }
 }

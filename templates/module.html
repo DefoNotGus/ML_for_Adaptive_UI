@@ -200,8 +200,29 @@ async function getTopicDescription(topic) {
     }
 }
 function openContent() {
-        window.location.href = "/prototype";
+    const targetModule = sessionStorage.getItem('target_module');
+    const targetTopic = sessionStorage.getItem('target_topic');
+    const startTime = sessionStorage.getItem('start_time');
+
+    const currentModuleName = "{{ module.name | lower }}";  // use Flask to inject the right module name already lowercase
+    const selectedTopicElement = document.querySelector("#content-display h3");
+    const selectedTopic = selectedTopicElement ? selectedTopicElement.innerText.trim().toLowerCase() : "";
+
+    if (!targetModule || !targetTopic || !startTime) {
+        alert("No active test found.");
+        return;
     }
+
+    if (currentModuleName === targetModule.trim().toLowerCase() &&
+        selectedTopic === targetTopic.trim().toLowerCase()) {
+        const endTime = Date.now();
+        const timeTaken = Math.round((endTime - startTime) / 1000); // seconds
+        alert(`🎉 Success! You completed the task in ${timeTaken} seconds.`);
+    } else {
+        alert("❌ Wrong module or topic, that's a fail.");
+    }
+}
+
 </script>
 </head>
 <body>
@@ -252,4 +273,112 @@ function openContent() {
     </div>
 </div>
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        applyUserPreferences();
+        setupSidebarControls();
+    });
+
+    const topics = "{{ module.topics | tojson }}";
+
+    function applyUserPreferences() {
+        document.documentElement.style.setProperty('--text-size', '{{ text_size | default(16, true) }}px');
+        document.documentElement.style.setProperty('--image-size', '{{ image_size | default(100, true) }}px');
+        document.documentElement.style.setProperty('--body-bg', '{{ bgcolor | default("#f4f4f4", true) }}');
+        document.documentElement.style.setProperty('--header-bg', '{{ hcolor | default("purple", true) }}');
+        
+        document.getElementById('bodyColorPicker').value = '{{ bgcolor | default("#f4f4f4", true) }}';
+        document.getElementById('headerColorPicker').value = '{{ hcolor | default("purple", true) }}';
+    }
+
+    function setupSidebarControls() {
+        document.getElementById('fontSizeSlider').addEventListener('input', function() {
+            document.documentElement.style.setProperty('--text-size', this.value + 'px');
+        });
+
+        document.getElementById('iconSizeSlider').addEventListener('input', function() {
+            document.documentElement.style.setProperty('--image-size', this.value + 'px');
+        });
+
+        document.getElementById('bodyColorPicker').addEventListener('input', function() {
+            document.documentElement.style.setProperty('--body-bg', this.value);
+        });
+
+        document.getElementById('headerColorPicker').addEventListener('input', function() {
+            document.documentElement.style.setProperty('--header-bg', this.value);
+        });
+
+        document.getElementById('darkModeToggle').addEventListener('change', function() {
+            if (this.checked) {
+                document.documentElement.style.setProperty("--body-bg", "#121212");
+                document.documentElement.style.setProperty("--text-color", "#ffffff");
+                document.documentElement.style.setProperty("--header-bg", "#1e1e1e");
+                document.documentElement.style.setProperty("--card-bg", "#333333");
+            } else {
+                document.documentElement.style.setProperty("--body-bg", "#f4f4f4");
+                document.documentElement.style.setProperty("--text-color", "#000000");
+                document.documentElement.style.setProperty("--header-bg", "#800080");
+                document.documentElement.style.setProperty("--card-bg", "#ffffff");
+            }
+        });
+    }
+
+    function loadContent(topic) {
+        const contentDisplay = document.getElementById("content-display");
+        const description = topics[topic] || "Description not available.";
+        contentDisplay.innerHTML = `<h3>${topic}</h3><p>${description}</p>`;
+        document.getElementById("open-content-btn").style.display = "block";
+
+        contentDisplay.scrollIntoView({ behavior: 'smooth' });
+    }
+
+
+    function openContent() {
+        const targetModule = sessionStorage.getItem('target_module');
+        const targetTopic = sessionStorage.getItem('target_topic');
+        const startTime = sessionStorage.getItem('start_time');
+
+        const currentModuleName = decodeURIComponent(window.location.pathname.split('/').pop());
+        const selectedTopicElement = document.querySelector("#content-display h3");
+        const selectedTopic = selectedTopicElement ? selectedTopicElement.innerText.trim() : "";
+
+        if (!targetModule || !targetTopic || !startTime) {
+            alert("No active test found.");
+            return;
+        }
+
+        if (currentModuleName.toLowerCase() === targetModule.trim().toLowerCase() &&
+            selectedTopic.toLowerCase() === targetTopic.trim().toLowerCase()) {
+            const endTime = Date.now();
+            const timeTaken = Math.round((endTime - startTime) / 1000); // seconds
+            alert(`Success! You completed the task in ${timeTaken} seconds.`);
+        } else {
+            alert("Wrong module or topic, that's a fail.");
+        }
+    }
+
+
+    function savePreferences() {
+        const data = {
+            text_size: document.getElementById("fontSizeSlider").value,
+            image_size: document.getElementById("iconSizeSlider").value,
+            bgcolor: document.getElementById("bodyColorPicker").value,
+            hcolor: document.getElementById("headerColorPicker").value
+        };
+
+        const saveButton = document.querySelector('button[onclick="savePreferences()"]');
+        saveButton.disabled = true; // Disable during saving
+
+        fetch("/save_preferences", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(result => {
+            console.log("Preferences saved:", result);
+            setTimeout(() => saveButton.disabled = false, 2000); // Re-enable after 2s
+        });
+    }
+</script>
 </html>

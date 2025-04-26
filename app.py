@@ -71,9 +71,21 @@ def home():
     users = load_data(USER_DATA_FILE, {})
     username = session.get("username", "guest")
     user_data = users.get(username, {"text_size": 16, "image_size": 100, "bgcolor": "#fff", "hcolor": "#7A287E"})
-    courses = load_data(MODULES_FILE, [])
 
-    response = render_template("prototype.html", course_modules=courses, **user_data)
+    courses = load_data(MODULES_FILE, {})
+    modules_data = courses.get("modules", [])  
+
+    # Pick a random module for prototype
+    import random
+    random.shuffle(modules_data)
+    selected_module = random.choice(modules_data) if modules_data else None
+
+    response = render_template(
+        "prototype.html", 
+        course_modules=courses, 
+        selected_module=selected_module, 
+        **user_data
+    )
     
     # Prevent caching
     response = app.make_response(response)
@@ -82,6 +94,7 @@ def home():
     response.headers["Expires"] = "0"
 
     return response
+
 
 @app.route('/module/<module_name>')
 def module_page(module_name):
@@ -261,6 +274,21 @@ def predict():
         })
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+@app.route("/get_user_data", methods=["GET"])
+def get_user_data():
+    if "username" not in session:
+        return jsonify({"error": "Not logged in"}), 403
+
+    users = load_data(USER_DATA_FILE, {})
+    user_data = users.get(session["username"], {})
+
+    required_fields = ['age', 'digital_challenges', 'application_challenges', 'education_level', 'current_device']
+    if not all(field in user_data for field in required_fields):
+        return jsonify({"error": "User data incomplete"}), 400
+
+    return jsonify({field: user_data[field] for field in required_fields})
+
 
 if __name__ == '__main__':
     app.run(debug=True)
