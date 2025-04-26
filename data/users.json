@@ -1,62 +1,14 @@
 {
-    "a": {
-        "password": "b25eaaaf9e40ea30de2856486d154630$488e10c6387d5d94bdf824cd815c65cf1576d22bf4202e8dfc58a7a4178b9297",
-        "age": "34",
-        "digital_challenges": "0",
-        "application_challenges": "0",
-        "education_level": "6",
-        "current_device": "2",
-        "bgcolor": "#332e2e",
-        "hcolor": "#835d8e",
-        "text_size": 25.253,
-        "image_size": 329.1920238095238
-    },
-    "c": {
-        "password": "51c97588752d6e6ca40606eed9bdf013$e770d6e833c442c066b9b70852077790c062d83b9b1f8805acb6836b3d8a718a",
-        "age": "66",
+    "gus": {
+        "password": "f2363a98565bf452bf1d537715f18454$e8a9accc02155737c2452c00df278ee43d25712bdc38affd689e0fe6384e168a",
+        "age": "25",
         "digital_challenges": "0",
         "application_challenges": "0",
         "education_level": "1",
         "current_device": "1",
-        "bgcolor": "#121212",
-        "hcolor": "#1e1e1e",
-        "text_size": "39",
-        "image_size": "419"
-    },
-    "j": {
-        "password": "68a18eea6adcee1ab8e732caf047b2d1$ac99d8f8a7224db2e121e66bfad356d0035e1b7d1431f432894f8191f5153ff7",
-        "age": "27",
-        "digital_challenges": "1",
-        "application_challenges": "0",
-        "education_level": "6",
-        "current_device": "2",
-        "bgcolor": "#f0f0f0",
-        "hcolor": "#7c3d9e",
-        "text_size": "29",
-        "image_size": "288"
-    },
-    "e": {
-        "password": "1047e76949b358995e4c863237c35011$84e4f4344f93c4667876ae77ced9a8b3fa3ab32fd7df8c3dabb3fd9afd49dc64",
-        "age": "55",
-        "digital_challenges": "2",
-        "application_challenges": "3",
-        "education_level": "4",
-        "current_device": "1",
         "bgcolor": "#f4f4f4",
         "hcolor": "#800080",
-        "text_size": 29.445404761904754,
-        "image_size": 430.4658333333333
-    },
-    "b": {
-        "password": "93e5a6b414058acc8210f5d365609064$eee21775caa55e73121ca2999bd27467cb2db8bbfb83d5016461df7abbf1ad4e",
-        "age": "22",
-        "digital_challenges": "3",
-        "application_challenges": "2",
-        "education_level": "3",
-        "current_device": "2",
-        "bgcolor": "#f4f4f4",
-        "hcolor": "#800080",
-        "text_size": "27",
-        "image_size": "332"
+        "text_size": 24.013880952380944,
+        "image_size": 300.9803571428571
     }
 }

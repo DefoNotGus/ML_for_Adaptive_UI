@@ -237,5 +237,30 @@ def add_no_cache_headers(response):
     response.headers["Expires"] = "0"
     return response
 
+@app.route("/predict", methods=["GET", "POST"])
+def predict():
+    if request.method == "GET":
+        return jsonify({
+            "message": "Send a POST request with JSON body including 'age', 'digital_challenges', 'application_challenges', 'education_level', and 'current_device'."
+        })
+
+    try:
+        data = request.get_json()
+
+        required_fields = ['age', 'digital_challenges', 'application_challenges', 'education_level', 'current_device']
+        if not all(field in data for field in required_fields):
+            return jsonify({"error": "Missing required fields."}), 400
+
+        input_data = np.array([[int(data[field]) for field in required_fields]])
+        predicted_text_size = float(models['text_size'].predict(input_data)[0])
+        predicted_image_size = float(models['image_size'].predict(input_data)[0])
+
+        return jsonify({
+            "predicted_text_size": predicted_text_size,
+            "predicted_image_size": predicted_image_size
+        })
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 if __name__ == '__main__':
     app.run(debug=True)
